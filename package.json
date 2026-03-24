@@ -1,0 +1,25 @@
+{
+  "name": "personal-academic-site",
+  "version": "1.0.0",
+  "description": "个人学术网站",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "devDependencies": {
+    "vuepress": "^1.9.7",
+    "@vuepress/plugin-back-to-top": "^1.9.7",
+    "@vuepress/plugin-medium-zoom": "^1.9.7",
+    "markdown-it-katex": "^2.0.3",
+    "markdown-it-copy": "^0.1.0"
+  },
+  "keywords": [
+    "academic",
+    "personal",
+    "website",
+    "vuepress"
+  ],
+  "author": "",
+  "license": "MIT"
+}
