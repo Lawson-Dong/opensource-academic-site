@@ -4,10 +4,24 @@
 
 ## 网站分区
 
-- **思考感悟**：记录我的学术思考和感悟，使用Markdown格式
-- **笔记**：包含学习笔记，支持LaTeX数学公式
-- **代码**：展示各种编程语言的代码项目
-- **人工智能**：展示AI相关技术成果，包括多模态内容
+<div style="display: flex; flex-wrap: wrap; gap: 20px; margin: 40px 0;">
+  <a href="/thoughts/" style="flex: 1; min-width: 200px; padding: 30px; background-color: #f5f5f5; border-radius: 8px; text-decoration: none; color: #333; text-align: center; transition: all 0.3s ease;">
+    <h2 style="margin-top: 0;">思考感悟</h2>
+    <p>记录我的学术思考和感悟</p>
+  </a>
+  <a href="/notes/" style="flex: 1; min-width: 200px; padding: 30px; background-color: #f5f5f5; border-radius: 8px; text-decoration: none; color: #333; text-align: center; transition: all 0.3s ease;">
+    <h2 style="margin-top: 0;">笔记</h2>
+    <p>包含学习笔记，支持LaTeX数学公式</p>
+  </a>
+  <a href="/code/" style="flex: 1; min-width: 200px; padding: 30px; background-color: #f5f5f5; border-radius: 8px; text-decoration: none; color: #333; text-align: center; transition: all 0.3s ease;">
+    <h2 style="margin-top: 0;">代码</h2>
+    <p>展示各种编程语言的代码项目</p>
+  </a>
+  <a href="/ai/" style="flex: 1; min-width: 200px; padding: 30px; background-color: #f5f5f5; border-radius: 8px; text-decoration: none; color: #333; text-align: center; transition: all 0.3s ease;">
+    <h2 style="margin-top: 0;">人工智能</h2>
+    <p>展示AI相关技术成果，包括多模态内容</p>
+  </a>
+</div>
 
 ## 技术栈
 
