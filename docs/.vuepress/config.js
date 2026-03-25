@@ -5,10 +5,10 @@ module.exports = {
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
-      { text: '思考感悟', link: '/thoughts/' },
-      { text: '笔记', link: '/notes/' },
-      { text: '代码', link: '/code/' },
-      { text: '人工智能', link: '/ai/' }
+      { text: '思考感悟', link: './thoughts/' },
+      { text: '笔记', link: './notes/' },
+      { text: '代码', link: './code/' },
+      { text: '人工智能', link: './ai/' }
     ],
     sidebar: {
       '/thoughts/': [

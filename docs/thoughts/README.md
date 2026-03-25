@@ -10,7 +10,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">学术思考</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="/thoughts/physics-ai.html" style="text-decoration: none; color: #333;">物理与人工智能的交叉</a>
+      <a href="./physics-ai.html" style="text-decoration: none; color: #333;">物理与人工智能的交叉</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">物理和人工智能是两个看似不同但又有许多交叉点的领域。物理学中的许多问题可以通过人工智能方法来解决，而人工智能的发展也受到物理学原理的启发。</p>
   </div>
@@ -22,7 +22,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">学习方法</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="/thoughts/learning-methods.html" style="text-decoration: none; color: #333;">学习方法的思考</a>
+      <a href="./learning-methods.html" style="text-decoration: none; color: #333;">学习方法的思考</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">有效的学习方法对于学术研究至关重要。我认为主动学习、深度学习、跨学科思考和实践应用是关键。</p>
   </div>
@@ -34,7 +34,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">研究方向</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="/thoughts/future-research.html" style="text-decoration: none; color: #333;">未来研究方向的思考</a>
+      <a href="./future-research.html" style="text-decoration: none; color: #333;">未来研究方向的思考</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">随着技术的发展，物理和人工智能的交叉领域将有更多的研究机会和挑战。</p>
   </div>
