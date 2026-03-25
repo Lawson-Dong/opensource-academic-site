@@ -1,7 +1,7 @@
 module.exports = {
   title: '个人学术网站',
   description: '物理与人工智能双专业本科生的学术思考、学习笔记和技术成果',
-  base: '/',
+  base: '/opensource-academic-site/',
   themeConfig: {
     nav: [
       { text: '首页', link: '/' },
