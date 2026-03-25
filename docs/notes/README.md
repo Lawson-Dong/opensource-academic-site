@@ -1,11 +1,16 @@
 # 笔记
 
-这里是我的学习笔记，包含PDF文件和其他学习资料。
-主要分为三个板块，数学、物理和AI
+这里是我的学习笔记和PDF文件。
 
-## 文件列表
+## 笔记列表
 
-- [The_Lagrange_Multiplier_Perspective_of_L1_Regularization](./The_Lagrange_Multiplier_Perspective_of_L1_Regularization.pdf) - L1正则化的拉格朗日乘数视角
-- [Derivation_of_Velocity_and_Kinetic_Energy_in_Spherical_Coordinates](./Derivation_of_Velocity_and_Kinetic_Energy_in_Spherical_Coordinates.pdf) - 球坐标系中速度和动能的推导
-- [Distinction_Between_Generalized_Forces__Active_Forces__and_Constraint_Forces](./Distinction_Between_Generalized_Forces__Active_Forces__and_Constraint_Forces%20(1)(1).pdf) - 广义力、主动力和约束力的区别
-- [Solving_the_Rolling_Hoop_on_an_Incline_Using_Lagrange_Multipliers__Two_Methods](./Solving_the_Rolling_Hoop_on_an_Incline_Using_Lagrange_Multipliers__Two_Methods.pdf) - 使用拉格朗日乘数法解决斜面上的滚动圆环问题：两种方法
+### 分析力学
+
+- [The_Lagrange_Multiplier_Perspective_of_L1_Regularization](./Physics_notes/analytical_mechanics/The_Lagrange_Multiplier_Perspective_of_L1_Regularization.pdf) - L1正则化的拉格朗日乘数视角
+- [Distinction_Between_Generalized_Forces__Active_Forces__and_Constraint_Forces](./Physics_notes/analytical_mechanics/Distinction_Between_Generalized_Forces__Active_Forces__and_Constraint_Forces%20(1)(1).pdf) - 广义力、主动力和约束力的区别
+- [Derivation_of_Velocity_and_Kinetic_Energy_in_Spherical_Coordinates](./Physics_notes/analytical_mechanics/Derivation_of_Velocity_and_Kinetic_Energy_in_Spherical_Coordinates.pdf) - 球坐标系中速度和动能的推导
+- [Solving_the_Rolling_Hoop_on_an_Incline_Using_Lagrange_Multipliers__Two_Methods](./Physics_notes/analytical_mechanics/Solving_the_Rolling_Hoop_on_an_Incline_Using_Lagrange_Multipliers__Two_Methods.pdf) - 使用拉格朗日乘数法求解斜面上滚动的 hoop（两种方法）
+
+### 多元函数微分学和矢量分析学
+
+- [多元函数微分学和矢量分析学](./multivariable_calculus/) - 学习笔记和资源
