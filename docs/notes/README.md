@@ -4,6 +4,4 @@
 
 ## 文件列表
 
-<!-- 上传文件后，将在这里显示文件列表 -->
-
-- [示例笔记.pdf](./example-note.pdf)（示例文件，实际文件将由您上传）
+- [The_Lagrange_Multiplier_Perspective_of_L1_Regularization](./The_Lagrange_Multiplier_Perspective_of_L1_Regularization.pdf) - L1正则化的拉格朗日乘数视角
