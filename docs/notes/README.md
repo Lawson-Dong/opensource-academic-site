@@ -10,7 +10,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">数学</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">数学公式示例</a>
+      <a href="/notes/math-formulas.html" style="text-decoration: none; color: #333;">数学公式示例</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">包含行内公式和独立公式块的示例，如质能方程、高斯积分等。</p>
   </div>
@@ -22,7 +22,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">物理</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">量子力学基础</a>
+      <a href="/notes/quantum-mechanics.html" style="text-decoration: none; color: #333;">量子力学基础</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">薛定谔方程的推导和应用，哈密顿算符和波函数的概念。</p>
   </div>
@@ -34,7 +34,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">物理</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">热力学第二定律</a>
+      <a href="/notes/thermodynamics.html" style="text-decoration: none; color: #333;">热力学第二定律</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">熵增原理的表述和应用，绝热过程的熵变化。</p>
   </div>

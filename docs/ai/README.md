@@ -10,7 +10,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">PyTorch</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">PyTorch代码示例</a>
+      <a href="/ai/pytorch-example.html" style="text-decoration: none; color: #333;">PyTorch代码示例</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">使用PyTorch定义简单的神经网络，包括模型结构、损失函数和优化器的配置。</p>
   </div>
@@ -22,7 +22,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">TensorFlow</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">TensorFlow代码示例</a>
+      <a href="/ai/tensorflow-example.html" style="text-decoration: none; color: #333;">TensorFlow代码示例</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">使用TensorFlow Keras定义简单的神经网络，包括模型结构和编译配置。</p>
   </div>

@@ -37,5 +37,5 @@
 
 ## 联系方式
 
-- Email: example@example.com
-- GitHub: https://github.com/example
+- Email: linxindong_0222qq.com
+- GitHub: [https://lawson-dong.github.io/opensource-academic-site/](https://lawson-dong.github.io/opensource-academic-site/)

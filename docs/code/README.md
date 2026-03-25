@@ -10,7 +10,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">Python</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">Python示例：斐波那契数列</a>
+      <a href="/code/python-fibonacci.html" style="text-decoration: none; color: #333;">Python示例：斐波那契数列</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">使用递归方法实现斐波那契数列的计算。</p>
   </div>
@@ -22,7 +22,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">Java</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">Java示例：Hello World</a>
+      <a href="/code/java-hello.html" style="text-decoration: none; color: #333;">Java示例：Hello World</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">Java语言的经典Hello World程序。</p>
   </div>
@@ -34,7 +34,7 @@
       <span style="font-size: 14px; color: #666; background-color: #f0f0f0; padding: 2px 8px; border-radius: 12px;">HTML</span>
     </div>
     <h2 style="margin: 10px 0;">
-      <a href="#" style="text-decoration: none; color: #333;">HTML示例</a>
+      <a href="/code/html-example.html" style="text-decoration: none; color: #333;">HTML示例</a>
     </h2>
     <p style="color: #666; line-height: 1.6;">基本的HTML页面结构示例。</p>
   </div>
