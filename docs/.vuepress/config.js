@@ -8,7 +8,8 @@ module.exports = {
       { text: '思考感悟', link: './thoughts/' },
       { text: '笔记', link: './notes/' },
       { text: '代码', link: './code/' },
-      { text: '人工智能', link: './ai/' }
+      { text: '人工智能', link: './ai/' },
+      { text: '技术学习日记', link: './tech-dairy/' }
     ],
     sidebar: {
       '/thoughts/': [
@@ -22,6 +23,9 @@ module.exports = {
       ],
       '/ai/': [
         { title: '人工智能', collapsable: false, children: [''] }
+      ],
+      '/tech-dairy/': [
+        { title: '技术学习日记', collapsable: false, children: [''] }
       ]
     },
     search: true,
