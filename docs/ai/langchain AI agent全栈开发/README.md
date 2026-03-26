@@ -2,11 +2,6 @@
 
 本指南介绍如何使用VSCode进行LangChain全栈开发，创建和部署AI Agent。
 
-## 首个开发项目 🌟
-
-[LangChain开发首个项目](https://github.com/Lawson-Dong/langchain_develop_first) - 一个基于LangChain的AI Agent开发实验项目
-
-
 ## 项目设置 📁
 
 ### 1. 新建项目文件夹
@@ -250,6 +245,144 @@ if __name__ == "__main__":
 - 支持对话记忆功能，能够记住之前的对话内容
 - 提供交互式命令行界面，方便测试和使用
 
+### 6. 让智能体访问互联网 - 集成Tavily API
+
+要让智能体能够访问互联网，获取最新信息，可以集成Tavily API。Tavily是一个专门为AI应用（特别是大型语言模型和AI智能体）设计的搜索引擎API。它不是一个给普通用户使用的传统搜索引擎网站，而是一个为开发者提供的后端服务。
+
+**集成步骤**：
+
+1. **获取Tavily API Key**
+   - 访问 [Tavily官网](https://tavily.com/) 注册账号
+   - 在控制台获取API Key
+
+2. **在.env文件中添加Tavily API Key**
+
+```
+DEEPSEEK_API_KEY=sk-xxxxxxxxxxx
+TAVILY_API_KEY=tvly-xxxxxxxxxxx
+```
+
+3. **安装Tavily依赖**
+
+```bash
+uv add tavily-python
+```
+
+4. **修改agent_langgraph.py文件，添加Tavily搜索工具**
+
+```python
+# agent_langgraph.py（添加Tavily搜索工具）
+import os
+from dotenv import load_dotenv
+from langchain_deepseek import ChatDeepSeek
+from langchain.tools import tool
+from langgraph.prebuilt import create_react_agent
+from langgraph.checkpoint.memory import MemorySaver
+from tavily import TavilyClient
+
+load_dotenv()
+
+# 初始化模型
+llm = ChatDeepSeek(
+    model="deepseek-chat",
+    temperature=0,
+    api_key=os.getenv("DEEPSEEK_API_KEY")
+)
+
+# 初始化Tavily客户端
+tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
+
+# 定义工具
+@tool
+def calculator(expression: str) -> str:
+    """计算数学表达式，例如 '2+3*4'"""
+    try:
+        result = eval(expression)
+        return f"计算结果: {result}"
+    except Exception as e:
+        return f"计算错误: {str(e)}"
+
+@tool
+def get_text_length(text: str) -> str:
+    """获取文本的字符长度"""
+    return f"文本长度: {len(text)} 个字符"
+
+@tool
+def reverse_string(text: str) -> str:
+    """反转字符串"""
+    return f"反转结果: {text[::-1]}"
+
+@tool
+def search_internet(query: str) -> str:
+    """搜索互联网获取最新信息，例如 '2024年奥运会举办地点'"""
+    try:
+        response = tavily_client.search(query=query, max_results=3)
+        results = response.get('results', [])
+        if not results:
+            return "未找到相关信息"
+        
+        # 整理搜索结果
+        formatted_results = []
+        for i, result in enumerate(results, 1):
+            title = result.get('title', '无标题')
+            url = result.get('url', '无链接')
+            content = result.get('content', '无内容')[:200] + '...' if result.get('content') else '无内容'
+            formatted_results.append(f"{i}. {title}\n   链接: {url}\n   内容: {content}")
+        
+        return "\n".join(formatted_results)
+    except Exception as e:
+        return f"搜索错误: {str(e)}"
+
+tools = [calculator, get_text_length, reverse_string, search_internet]
+
+# 创建记忆（可选）
+memory = MemorySaver()
+
+# 创建智能体（使用 langgraph）
+agent = create_react_agent(
+    model=llm,
+    tools=tools,
+    checkpointer=memory,  # 添加记忆功能
+)
+
+# 主函数
+def main():
+    print("=" * 50)
+    print("LangChain 智能体已启动（LangGraph 版本）！")
+    print("输入 'quit' 退出")
+    print("=" * 50)
+    
+    # 配置会话 ID（用于记忆）
+    config = {"configurable": {"thread_id": "1"}}
+    
+    while True:
+        user_input = input("\n你: ")
+        if user_input.lower() in ['quit', 'exit', 'q']:
+            print("再见！")
+            break
+        
+        try:
+            # 调用智能体
+            response = agent.invoke(
+                {"messages": [("user", user_input)]},
+                config=config
+            )
+            # 获取最后一条消息（智能体的回复）
+            last_message = response["messages"][-1]
+            print(f"\n智能体: {last_message.content}")
+        except Exception as e:
+            print(f"\n错误: {e}")
+
+if __name__ == "__main__":
+    main()
+```
+
+**功能说明**：
+- 集成了Tavily搜索引擎API，使智能体能够访问互联网
+- 添加了`search_internet`工具，用于搜索最新信息
+- 智能体可以根据用户的问题，自动调用搜索工具获取相关信息
+- 搜索结果会被整理并以友好的格式呈现给用户
+
 ## VSCode开发文件架构展示 📁
 
 为了便利，在开发过程中，我们一般会将项目文件夹下的文件按照如下格式整理：
@@ -281,6 +414,7 @@ langchain/
 # 存储敏感信息和配置
 DEEPSEEK_API_KEY=sk-xxxxx
 OPENAI_API_KEY=sk-xxxxx
+TAVILY_API_KEY=tvly-xxxxx
 DATABASE_URL=postgresql://localhost/mydb  
 ```
 
@@ -330,6 +464,7 @@ dependencies = [
     "langchain-deepseek>=1.0.0",
     "python-dotenv>=1.0.0",
     "langgraph>=0.0.20",
+    "tavily-python>=0.1.0",
 ]
 
 [project.scripts]
