@@ -19,9 +19,6 @@
     <li style="margin: 10px 0;">
       <a href="./ai/" style="text-decoration: none; color: #0066cc;">人工智能</a> - AI技术和Agent Skill文件
     </li>
-    <li style="margin: 10px 0;">
-      <a href="./tech-dairy/" style="text-decoration: none; color: #0066cc;">技术学习日记</a> - 记录技术栈学习历程
-    </li>
   </ul>
 </div>
 
