@@ -11,6 +11,10 @@
 - [Derivation_of_Velocity_and_Kinetic_Energy_in_Spherical_Coordinates](./Physics_notes/analytical_mechanics/Derivation_of_Velocity_and_Kinetic_Energy_in_Spherical_Coordinates.pdf) - 球坐标系中速度和动能的推导
 - [Solving_the_Rolling_Hoop_on_an_Incline_Using_Lagrange_Multipliers__Two_Methods](./Physics_notes/analytical_mechanics/Solving_the_Rolling_Hoop_on_an_Incline_Using_Lagrange_Multipliers__Two_Methods.pdf) - 使用拉格朗日乘数法求解斜面上滚动的 hoop（两种方法）
 
+### 统计力学
+
+- [Stanford统计力学课程笔记](./Physics_notes/statistical_mechanics/Stanford_SM_lecture_notes/) - Leonard Susskind教授的统计力学课程笔记
+
 ### 多元函数微分学和矢量分析学
 
 - [多元函数微分学和矢量分析学](./multivariable_calculus/) - 学习笔记和资源
