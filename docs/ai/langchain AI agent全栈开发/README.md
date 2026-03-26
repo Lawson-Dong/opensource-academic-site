@@ -2,6 +2,11 @@
 
 本指南介绍如何使用VSCode进行LangChain全栈开发，创建和部署AI Agent。
 
+## 首个开发项目 🌟
+
+[LangChain开发首个项目](https://github.com/Lawson-Dong/langchain_develop_first) - 一个基于LangChain的AI Agent开发实验项目
+
+
 ## 项目设置 📁
 
 ### 1. 新建项目文件夹
@@ -53,7 +58,7 @@ uv init
 ### 4. 安装依赖包
 
 ```bash
-uv add python-dotenv langchain langchain-deepseek
+uv add python-dotenv langchain langchain-deepseek langgraph
 ```
 
 ### 5. 查看已安装的包
@@ -90,7 +95,7 @@ cat pyproject.toml
 修改后重新安装依赖：
 
 ```bash
-uv add python-dotenv langchain langchain-deepseek
+uv add python-dotenv langchain langchain-deepseek langgraph
 ```
 
 ## 项目文件结构 📁
@@ -152,6 +157,98 @@ try:
 except Exception as e:
     print(f"\n❌ 连接失败: {e}")
 ```
+
+### 5. 创建agent_langgraph.py
+
+在项目根目录新建`agent_langgraph.py`文件，用于创建基于LangGraph的智能体，实现工具调用和记忆功能：
+
+```python
+# agent_langgraph.py
+import os
+from dotenv import load_dotenv
+from langchain_deepseek import ChatDeepSeek
+from langchain.tools import tool
+from langgraph.prebuilt import create_react_agent
+from langgraph.checkpoint.memory import MemorySaver
+
+load_dotenv()
+
+# 初始化模型
+llm = ChatDeepSeek(
+    model="deepseek-chat",
+    temperature=0,
+    api_key=os.getenv("DEEPSEEK_API_KEY")
+)
+
+# 定义工具
+@tool
+def calculator(expression: str) -> str:
+    """计算数学表达式，例如 '2+3*4'"""
+    try:
+        result = eval(expression)
+        return f"计算结果: {result}"
+    except Exception as e:
+        return f"计算错误: {str(e)}"
+
+@tool
+def get_text_length(text: str) -> str:
+    """获取文本的字符长度"""
+    return f"文本长度: {len(text)} 个字符"
+
+@tool
+def reverse_string(text: str) -> str:
+    """反转字符串"""
+    return f"反转结果: {text[::-1]}"
+
+tools = [calculator, get_text_length, reverse_string]
+
+# 创建记忆（可选）
+memory = MemorySaver()
+
+# 创建智能体（使用 langgraph）
+agent = create_react_agent(
+    model=llm,
+    tools=tools,
+    checkpointer=memory,  # 添加记忆功能
+)
+
+# 主函数
+def main():
+    print("=" * 50)
+    print("LangChain 智能体已启动（LangGraph 版本）！")
+    print("输入 'quit' 退出")
+    print("=" * 50)
+    
+    # 配置会话 ID（用于记忆）
+    config = {"configurable": {"thread_id": "1"}}
+    
+    while True:
+        user_input = input("\n你: ")
+        if user_input.lower() in ['quit', 'exit', 'q']:
+            print("再见！")
+            break
+        
+        try:
+            # 调用智能体
+            response = agent.invoke(
+                {"messages": [("user", user_input)]},
+                config=config
+            )
+            # 获取最后一条消息（智能体的回复）
+            last_message = response["messages"][-1]
+            print(f"\n智能体: {last_message.content}")
+        except Exception as e:
+            print(f"\n错误: {e}")
+
+if __name__ == "__main__":
+    main()
+```
+
+**功能说明**：
+- 使用LangGraph创建React风格的智能体
+- 集成了三个工具：计算器、文本长度计算和字符串反转
+- 支持对话记忆功能，能够记住之前的对话内容
+- 提供交互式命令行界面，方便测试和使用
 
 ## VSCode开发文件架构展示 📁
 
@@ -270,6 +367,10 @@ if __name__ == "__main__":
 - 程序的统一入口点
 - 通常只做启动工作，不包含业务逻辑
 - 可以通过 python main.py 运行
+
+## 首个开发项目 🌟
+
+[LangChain开发首个项目](https://github.com/Lawson-Dong/langchain_develop_first) - 一个基于LangChain的AI Agent开发实验项目
 
 ## LangChain 平台介绍 📚
 
