@@ -1,9 +1,10 @@
-# 代码
+# Code
 
-这里是我的代码项目和GitHub链接。
+Here are my code projects and GitHub links.
 
-## 代码列表
+## Code List
 
-<!-- 上传文件后，将在这里显示代码链接 -->
+<!-- After uploading files, code links will be displayed here -->
 
-- [示例代码](https://github.com/example)（示例链接，实际链接将由您上传）
+- [Example Code](https://github.com/example) (Example link, actual links will be provided by you)
+- [SSH Key Configuration Guide](../SSH_key/README.md) - Detailed steps for GitHub SSH key configuration

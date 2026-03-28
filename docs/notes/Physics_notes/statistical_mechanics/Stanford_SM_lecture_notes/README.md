@@ -1,30 +1,29 @@
-# Stanford统计力学课程笔记 📚
+# Stanford Statistical Mechanics Course Notes 📚
 
-这里是我上Leonard Susskind教授统计力学课程的笔记。
+Here are my notes from Professor Leonard Susskind's Statistical Mechanics course.
 
-## 课程信息 👨‍🏫
+## Course Information 👨‍🏫
 
-- **课程名称**：统计力学
-- **教授**：Leonard Susskind
-- **学校**：Stanford University
+- **Course Name**: Statistical Mechanics
+- **Professor**: Leonard Susskind
+- **University**: Stanford University
 
-## 笔记列表 📝
+## Notes List 📝
 
 ### Lecture 2
 
-- [下载笔记](./Stanford_SM_L2.pdf) - 统计力学第二讲笔记
+- [Download Notes](./Stanford_SM_L2.pdf) - Statistical Mechanics Lecture 2 Notes
 
+## Course Content 📖
 
-## 课程内容 📖
+Statistical mechanics is the study of behavior of systems with large numbers of particles, using probability and statistical methods to describe and predict properties of macroscopic systems.
 
-统计力学是研究大量粒子系统行为的学科，通过概率和统计方法来描述和预测宏观系统的性质。
+## Learning Resources 🎯
 
-## 学习资源 🎯
-
-- **课程视频**：Stanford大学官方发布的课程视频
-- **教材**：统计力学相关经典教材
-- **参考资料**：教授提供的讲义和补充材料
+- **Course Videos**: Official course videos released by Stanford University
+- **Textbooks**: Classic textbooks related to statistical mechanics
+- **Reference Materials**: Lecture notes and supplementary materials provided by the professor
 
 ---
 
-*跟着Susskind教授，探索统计力学的奇妙世界！* 🌟
+*Follow Professor Susskind and explore the wonderful world of statistical mechanics!* 🌟

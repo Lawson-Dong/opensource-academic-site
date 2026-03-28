@@ -1,10 +1,10 @@
-# 人工智能
+# Artificial Intelligence
 
-这里是我的AI技术成果和Agent Skill文件。
+Here are my AI technology achievements and Agent Skill files.
 
-## 文件列表
+## File List
 
-<!-- 上传文件后，将在这里显示文件列表 -->
+<!-- After uploading files, the file list will be displayed here -->
 
-- [示例Agent Skill](./example-skill.md)（示例文件，实际文件将由您上传）
-- [LangChain AI Agent全栈开发](./langchain%20AI%20agent全栈开发/) - 使用VSCode进行LangChain全栈开发的完整指南
+
+- [LangChain AI Agent Full Stack Development](./langchain%20AI%20agent全栈开发/) - Complete guide for LangChain full stack development using VSCode

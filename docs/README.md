@@ -1,40 +1,43 @@
-# 个人学术网站
+# Personal Academic Website
 
-欢迎来到我的个人学术网站！我是一名物理和人工智能双专业的本科生，这里记录了我的学术思考、学习笔记、代码项目及人工智能技术成果。
+Welcome to my personal academic website! I am an undergraduate student majoring in both Physics and Artificial Intelligence. Here I record my academic thoughts, study notes, code projects, and AI technology achievements.
 
-## 网站分区
+## Website Sections
 
 <div style="margin: 30px 0;">
-  <h3>文件访问</h3>
+  <h3>File Access</h3>
   <ul style="list-style-type: none; padding: 0;">
     <li style="margin: 10px 0;">
-      <a href="./thoughts/" style="text-decoration: none; color: #0066cc;">思考感悟</a> - 记录学术思考和感悟
+      <a href="./thoughts/" style="text-decoration: none; color: #0066cc;">Thoughts & Insights</a> - Record academic thoughts and insights
     </li>
     <li style="margin: 10px 0;">
-      <a href="./notes/" style="text-decoration: none; color: #0066cc;">笔记</a> - 学习笔记和PDF文件
+      <a href="./notes/" style="text-decoration: none; color: #0066cc;">Notes</a> - Study notes and PDF files
     </li>
     <li style="margin: 10px 0;">
-      <a href="./code/" style="text-decoration: none; color: #0066cc;">代码</a> - 代码示例和GitHub链接
+      <a href="./code/" style="text-decoration: none; color: #0066cc;">Code</a> - Code examples and GitHub links
     </li>
     <li style="margin: 10px 0;">
-      <a href="./ai/" style="text-decoration: none; color: #0066cc;">人工智能</a> - AI技术和Agent Skill文件
+      <a href="./ai/" style="text-decoration: none; color: #0066cc;">Artificial Intelligence</a> - AI technology and Agent Skill files
+    </li>
+    <li style="margin: 10px 0;">
+      <a href="./SSH_key/" style="text-decoration: none; color: #0066cc;">SSH Key Configuration</a> - GitHub SSH key configuration guide
     </li>
   </ul>
 </div>
 
-## 技术栈
+## Tech Stack
 
-- **静态网站生成器**：VuePress
-- **Markdown解析**：内置支持
-- **LaTeX公式**：KaTeX
-- **代码高亮**：Prism.js
-- **响应式设计**：VuePress默认主题
+- **Static Site Generator**: VuePress
+- **Markdown Parsing**: Built-in support
+- **LaTeX Formulas**: KaTeX
+- **Code Highlighting**: Prism.js
+- **Responsive Design**: VuePress default theme
 
-## 关于我
+## About Me
 
-我对物理和人工智能领域都充满兴趣，希望通过这个网站记录我的学习历程和技术探索。
+I am passionate about both physics and artificial intelligence, and hope to use this website to record my learning journey and technical exploration.
 
-## 联系方式
+## Contact
 
 - Email: linxindong_0222qq.com
 - GitHub: [https://lawson-dong.github.io/opensource-academic-site/](https://lawson-dong.github.io/opensource-academic-site/)

@@ -1,161 +1,161 @@
-# 人工智能体工程：LangChain全栈开发 🤖
+# AI Agent Engineering: LangChain Full Stack Development 🤖
 
-本指南介绍如何使用VSCode进行LangChain全栈开发，创建和部署AI Agent。
+This guide introduces how to use VSCode for LangChain full stack development, creating and deploying AI Agents.
 
-## 项目设置 📁
+## Project Setup 📁
 
-### 1. 新建项目文件夹
+### 1. Create Project Folder
 
 ```bash
-# 创建项目文件夹
+# Create project folder
 mkdir langchain_agent_development
 
-# 进入项目目录
+# Enter project directory
 cd langchain_agent_development
 ```
 
-### 2. 在VSCode中打开项目
+### 2. Open Project in VSCode
 
-在VSCode中新建`app.py`文件，作为项目的主入口。
+Create a new `app.py` file in VSCode as the main entry point for the project.
 
-## 安装依赖 🔧
+## Install Dependencies 🔧
 
-### 1. 安装uv
+### 1. Install uv
 
-在VSCode的终端中执行以下命令安装uv：
+Execute the following command in VSCode terminal to install uv:
 
 ```bash
 powershell -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
-### 2. 使用uv管理Python版本
+### 2. Use uv to Manage Python Versions
 
-uv可以自动下载和管理Python版本，不需要系统预装Python：
+uv can automatically download and manage Python versions, no need to pre-install Python on the system:
 
 ```bash
-# 查看uv管理的Python版本
+# View Python versions managed by uv
 uv python list
 
-# 安装特定Python版本
+# Install specific Python version
 uv python install 3.12
 
-# 查看当前使用的Python
+# View currently used Python
 uv python find
 ```
 
-### 3. 初始化项目
+### 3. Initialize Project
 
 ```bash
-# 初始化项目，创建pyproject.toml
+# Initialize project, create pyproject.toml
 uv init
 ```
 
-### 4. 安装依赖包
+### 4. Install Dependency Packages
 
 ```bash
 uv add python-dotenv langchain langchain-deepseek langgraph
 ```
 
-### 5. 查看已安装的包
+### 5. View Installed Packages
 
 ```bash
 uv pip list
 ```
 
-## 常见问题解决 🛠️
+## Common Issue Resolution 🛠️
 
-### 项目名称与依赖包重名
+### Project Name Conflicts with Dependency Package
 
-如果在安装依赖时出现以下错误：
+If you encounter the following error when installing dependencies:
 
 ```
 error: Requirement name `langchain` matches project name `langchain`, but self-dependencies are not permitted without the `--dev` or `--optional` flags. If your project name (`langchain`) is shadowing that of a third-party dependency, consider renaming the project.
 ```
 
-解决方法：
+Solution:
 
 ```bash
-# 查看pyproject.toml中的项目名称
+# View project name in pyproject.toml
 cat pyproject.toml
 
-# 用VSCode打开编辑
+# Open with VSCode to edit
 code pyproject.toml
 
-# 换一个名字（例如：langchain-agent-development）
+# Change to a different name (e.g., langchain-agent-development)
 
-# 确认文件已保存并修改成功
+# Confirm file has been saved and modified successfully
 cat pyproject.toml
 ```
 
-修改后重新安装依赖：
+Reinstall dependencies after modification:
 
 ```bash
 uv add python-dotenv langchain langchain-deepseek langgraph
 ```
 
-## 项目文件结构 📁
+## Project File Structure 📁
 
-### 1. 创建agent_langgraph.py
+### 1. Create agent_langgraph.py
 
-在项目根目录新建`agent_langgraph.py`文件，用于开发agent的功能。
+Create a new `agent_langgraph.py` file in the project root directory for developing agent functionality.
 
-### 2. 创建.env文件
+### 2. Create .env File
 
-在项目根目录新建`.env`文件用来关联API key：
+Create a new `.env` file in the project root directory to associate API keys:
 
 ```
 DEEPSEEK_API_KEY=sk-xxxxxxxxxxx
 ```
 
-API Key获取：
-- **DeepSeek**：[https://platform.deepseek.com/](https://platform.deepseek.com/)（token会便宜一点）
-- **OpenAI**：[https://platform.openai.com/api-keys](https://platform.openai.com/api-keys)（API Key的格式相同）
+API Key Acquisition:
+- **DeepSeek**: [https://platform.deepseek.com/](https://platform.deepseek.com/) (tokens are cheaper)
+- **OpenAI**: [https://platform.openai.com/api-keys](https://platform.openai.com/api-keys) (API Key format is the same)
 
-### 3. AI Agent的API和API Key介绍
+### 3. AI Agent API and API Key Introduction
 
-**AI Agent的API**是让智能体能够与外部系统、工具或大模型进行标准化交互的接口协议，相当于智能体的“手脚”和“感官”的调用入口。
+**AI Agent API** is an interface protocol that enables agents to interact with external systems, tools, or large models in a standardized manner, equivalent to the entry point for the agent's "hands and feet" and "senses".
 
-**API Key**则是用于验证调用者身份、权限和计费凭证的密钥，相当于智能体使用API时的“身份证”和“通行证”。（人工智能时代这玩意属于隐私，跟你身份证号一样，不要随便给别人）
+**API Key** is a key used to verify caller identity, permissions, and billing credentials, equivalent to the agent's "ID card" and "pass" when using APIs. (In the AI era, this is private information, like your ID number, don't share it with others casually)
 
-### 4. 创建quick_test.py
+### 4. Create quick_test.py
 
-在项目根目录新建`quick_test.py`文件，用于运行测试代码，验证API key是否关联好以及agent的状态：
+Create a new `quick_test.py` file in the project root directory for running test code to verify if the API key is properly associated and the agent status:
 
 ```python
-# 测试环境准备
+# Test environment preparation
 from langchain_deepseek import ChatDeepSeek
 from dotenv import load_dotenv
 import os
 
 load_dotenv()
 
-# 检查 API Key
+# Check API Key
 api_key = os.getenv("DEEPSEEK_API_KEY")
 if not api_key:
-    print("错误：未找到 DEEPSEEK_API_KEY，请在 .env 文件中设置")
+    print("Error: DEEPSEEK_API_KEY not found, please set it in .env file")
     exit(1)
 
-print(f"API Key 已配置: {api_key[:10]}...")
+print(f"API Key configured: {api_key[:10]}...")
 
-# 测试模型
+# Test model
 llm = ChatDeepSeek(
     model="deepseek-chat",
     api_key=api_key
 )
 
-# 在terminal输出
-print("\n测试连接中...")
+# Output in terminal
+print("\nTesting connection...")
 try:
-    response = llm.invoke("你好，请简单介绍一下你自己，一句话即可")
-    print(f"\n模型回复: {response.content}")
-    print("\n✅ 模型连接成功！")
+    response = llm.invoke("Hello, please briefly introduce yourself in one sentence")
+    print(f"\nModel response: {response.content}")
+    print("\n✅ Model connection successful!")
 except Exception as e:
-    print(f"\n❌ 连接失败: {e}")
+    print(f"\n❌ Connection failed: {e}")
 ```
 
-### 5. 创建agent_langgraph.py
+### 5. Create agent_langgraph.py
 
-在项目根目录新建`agent_langgraph.py`文件，用于创建基于LangGraph的智能体，实现工具调用和记忆功能：
+Create a new `agent_langgraph.py` file in the project root directory for creating a LangGraph-based agent with tool calling and memory functionality:
 
 ```python
 # agent_langgraph.py
@@ -168,110 +168,110 @@ from langgraph.checkpoint.memory import MemorySaver
 
 load_dotenv()
 
-# 初始化模型
+# Initialize model
 llm = ChatDeepSeek(
     model="deepseek-chat",
     temperature=0,
     api_key=os.getenv("DEEPSEEK_API_KEY")
 )
 
-# 定义工具
+# Define tools
 @tool
 def calculator(expression: str) -> str:
-    """计算数学表达式，例如 '2+3*4'"""
+    """Calculate mathematical expressions, e.g., '2+3*4'"""
     try:
         result = eval(expression)
-        return f"计算结果: {result}"
+        return f"Calculation result: {result}"
     except Exception as e:
-        return f"计算错误: {str(e)}"
+        return f"Calculation error: {str(e)}"
 
 @tool
 def get_text_length(text: str) -> str:
-    """获取文本的字符长度"""
-    return f"文本长度: {len(text)} 个字符"
+    """Get the character length of text"""
+    return f"Text length: {len(text)} characters"
 
 @tool
 def reverse_string(text: str) -> str:
-    """反转字符串"""
-    return f"反转结果: {text[::-1]}"
+    """Reverse a string"""
+    return f"Reversal result: {text[::-1]}"
 
 tools = [calculator, get_text_length, reverse_string]
 
-# 创建记忆（可选）
+# Create memory (optional)
 memory = MemorySaver()
 
-# 创建智能体（使用 langgraph）
+# Create agent (using langgraph)
 agent = create_react_agent(
     model=llm,
     tools=tools,
-    checkpointer=memory,  # 添加记忆功能
+    checkpointer=memory,  # Add memory functionality
 )
 
-# 主函数
+# Main function
 def main():
     print("=" * 50)
-    print("LangChain 智能体已启动（LangGraph 版本）！")
-    print("输入 'quit' 退出")
+    print("LangChain Agent Started (LangGraph Version)!")
+    print("Type 'quit' to exit")
     print("=" * 50)
     
-    # 配置会话 ID（用于记忆）
+    # Configure session ID (for memory)
     config = {"configurable": {"thread_id": "1"}}
     
     while True:
-        user_input = input("\n你: ")
+        user_input = input("\nYou: ")
         if user_input.lower() in ['quit', 'exit', 'q']:
-            print("再见！")
+            print("Goodbye!")
             break
         
         try:
-            # 调用智能体
+            # Call agent
             response = agent.invoke(
                 {"messages": [("user", user_input)]},
                 config=config
             )
-            # 获取最后一条消息（智能体的回复）
+            # Get last message (agent's response)
             last_message = response["messages"][-1]
-            print(f"\n智能体: {last_message.content}")
+            print(f"\nAgent: {last_message.content}")
         except Exception as e:
-            print(f"\n错误: {e}")
+            print(f"\nError: {e}")
 
 if __name__ == "__main__":
     main()
 ```
 
-**功能说明**：
-- 使用LangGraph创建React风格的智能体
-- 集成了三个工具：计算器、文本长度计算和字符串反转
-- 支持对话记忆功能，能够记住之前的对话内容
-- 提供交互式命令行界面，方便测试和使用
+**Functionality Description**:
+- Use LangGraph to create React-style agents
+- Integrated three tools: calculator, text length calculation, and string reversal
+- Supports conversation memory, able to remember previous conversation content
+- Provides interactive command-line interface for easy testing and use
 
-### 6. 让智能体访问互联网 - 集成Tavily API
+### 6. Enable Agent to Access Internet - Integrate Tavily API
 
-要让智能体能够访问互联网，获取最新信息，可以集成Tavily API。Tavily是一个专门为AI应用（特别是大型语言模型和AI智能体）设计的搜索引擎API。它不是一个给普通用户使用的传统搜索引擎网站，而是一个为开发者提供的后端服务。
+To enable the agent to access the internet and get the latest information, you can integrate Tavily API. Tavily is a search engine API specifically designed for AI applications (especially large language models and AI agents). It is not a traditional search engine website for ordinary users, but a backend service provided for developers.
 
-**集成步骤**：
+**Integration Steps**:
 
-1. **获取Tavily API Key**
-   - 访问 [Tavily官网](https://tavily.com/) 注册账号
-   - 在控制台获取API Key
+1. **Get Tavily API Key**
+   - Visit [Tavily Official Website](https://tavily.com/) to register an account
+   - Get API Key in the console
 
-2. **在.env文件中添加Tavily API Key**
+2. **Add Tavily API Key to .env File**
 
 ```
 DEEPSEEK_API_KEY=sk-xxxxxxxxxxx
 TAVILY_API_KEY=tvly-xxxxxxxxxxx
 ```
 
-3. **安装Tavily依赖**
+3. **Install Tavily Dependency**
 
 ```bash
 uv add tavily-python
 ```
 
-4. **修改agent_langgraph.py文件，添加Tavily搜索工具**
+4. **Modify agent_langgraph.py File, Add Tavily Search Tool**
 
 ```python
-# agent_langgraph.py（添加Tavily搜索工具）
+# agent_langgraph.py (add Tavily search tool)
 import os
 from dotenv import load_dotenv
 from langchain_deepseek import ChatDeepSeek
@@ -282,110 +282,110 @@ from tavily import TavilyClient
 
 load_dotenv()
 
-# 初始化模型
+# Initialize model
 llm = ChatDeepSeek(
     model="deepseek-chat",
     temperature=0,
     api_key=os.getenv("DEEPSEEK_API_KEY")
 )
 
-# 初始化Tavily客户端
+# Initialize Tavily client
 tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
-# 定义工具
+# Define tools
 @tool
 def calculator(expression: str) -> str:
-    """计算数学表达式，例如 '2+3*4'"""
+    """Calculate mathematical expressions, e.g., '2+3*4'"""
     try:
         result = eval(expression)
-        return f"计算结果: {result}"
+        return f"Calculation result: {result}"
     except Exception as e:
-        return f"计算错误: {str(e)}"
+        return f"Calculation error: {str(e)}"
 
 @tool
 def get_text_length(text: str) -> str:
-    """获取文本的字符长度"""
-    return f"文本长度: {len(text)} 个字符"
+    """Get the character length of text"""
+    return f"Text length: {len(text)} characters"
 
 @tool
 def reverse_string(text: str) -> str:
-    """反转字符串"""
-    return f"反转结果: {text[::-1]}"
+    """Reverse a string"""
+    return f"Reversal result: {text[::-1]}"
 
 @tool
 def search_internet(query: str) -> str:
-    """搜索互联网获取最新信息，例如 '2024年奥运会举办地点'"""
+    """Search the internet for latest information, e.g., '2024 Olympics location'"""
     try:
         response = tavily_client.search(query=query, max_results=3)
         results = response.get('results', [])
         if not results:
-            return "未找到相关信息"
+            return "No relevant information found"
         
-        # 整理搜索结果
+        # Organize search results
         formatted_results = []
         for i, result in enumerate(results, 1):
-            title = result.get('title', '无标题')
-            url = result.get('url', '无链接')
-            content = result.get('content', '无内容')[:200] + '...' if result.get('content') else '无内容'
-            formatted_results.append(f"{i}. {title}\n   链接: {url}\n   内容: {content}")
+            title = result.get('title', 'No title')
+            url = result.get('url', 'No link')
+            content = result.get('content', 'No content')[:200] + '...' if result.get('content') else 'No content'
+            formatted_results.append(f"{i}. {title}\n   Link: {url}\n   Content: {content}")
         
         return "\n".join(formatted_results)
     except Exception as e:
-        return f"搜索错误: {str(e)}"
+        return f"Search error: {str(e)}"
 
 tools = [calculator, get_text_length, reverse_string, search_internet]
 
-# 创建记忆（可选）
+# Create memory (optional)
 memory = MemorySaver()
 
-# 创建智能体（使用 langgraph）
+# Create agent (using langgraph)
 agent = create_react_agent(
     model=llm,
     tools=tools,
-    checkpointer=memory,  # 添加记忆功能
+    checkpointer=memory,  # Add memory functionality
 )
 
-# 主函数
+# Main function
 def main():
     print("=" * 50)
-    print("LangChain 智能体已启动（LangGraph 版本）！")
-    print("输入 'quit' 退出")
+    print("LangChain Agent Started (LangGraph Version)!")
+    print("Type 'quit' to exit")
     print("=" * 50)
     
-    # 配置会话 ID（用于记忆）
+    # Configure session ID (for memory)
     config = {"configurable": {"thread_id": "1"}}
     
     while True:
-        user_input = input("\n你: ")
+        user_input = input("\nYou: ")
         if user_input.lower() in ['quit', 'exit', 'q']:
-            print("再见！")
+            print("Goodbye!")
             break
         
         try:
-            # 调用智能体
+            # Call agent
             response = agent.invoke(
                 {"messages": [("user", user_input)]},
                 config=config
             )
-            # 获取最后一条消息（智能体的回复）
+            # Get last message (agent's response)
             last_message = response["messages"][-1]
-            print(f"\n智能体: {last_message.content}")
+            print(f"\nAgent: {last_message.content}")
         except Exception as e:
-            print(f"\n错误: {e}")
+            print(f"\nError: {e}")
 
 if __name__ == "__main__":
     main()
 ```
 
-**功能说明**：
-- 集成了Tavily搜索引擎API，使智能体能够访问互联网
-- 添加了`search_internet`工具，用于搜索最新信息
-- 智能体可以根据用户的问题，自动调用搜索工具获取相关信息
-- 搜索结果会被整理并以友好的格式呈现给用户
+**Functionality Description**:
+- Integrated Tavily search engine API, enabling the agent to access the internet
+- Added `search_internet` tool for searching latest information
+- Agent can automatically call search tools to get relevant information based on user questions
+- Search results are organized and presented in a user-friendly format
 
-## VSCode开发文件架构展示 📁
+## VSCode Development File Architecture Display 📁
 
-为了便利，在开发过程中，我们一般会将项目文件夹下的文件按照如下格式整理：
+For convenience during development, we generally organize files in the project folder in the following format:
 
 ```
 langchain/
@@ -393,71 +393,71 @@ langchain/
 ├── .gitignore
 ├── pyproject.toml
 ├── uv.lock
-├── main.py                    # 主程序入口
-├── tools/                     # 工具包目录
-│   ├── __init__.py           # 包初始化文件
-│   ├── math_tools.py         # 数学计算工具
-│   ├── text_tools.py         # 文本处理工具
-│   ├── file_tools.py         # 文件操作工具
-│   ├── web_tools.py          # 网络相关工具
-│   └── data_tools.py         # 数据处理工具
-└── agents/                    # 智能体配置
+├── main.py                    # Main program entry point
+├── tools/                     # Tools package directory
+│   ├── __init__.py           # Package initialization file
+│   ├── math_tools.py         # Math calculation tools
+│   ├── text_tools.py         # Text processing tools
+│   ├── file_tools.py         # File operation tools
+│   ├── web_tools.py          # Web-related tools
+│   └── data_tools.py         # Data processing tools
+└── agents/                    # Agent configuration
     ├── __init__.py
-    └── my_agent.py           # 智能体定义  
+    └── my_agent.py           # Agent definition  
 ```
 
-### 根目录文件介绍
+### Root Directory File Introduction
 
-#### .env - 环境变量配置
+#### .env - Environment Variable Configuration
 
 ```python
-# 存储敏感信息和配置
+# Store sensitive information and configuration
 DEEPSEEK_API_KEY=sk-xxxxx
 OPENAI_API_KEY=sk-xxxxx
 TAVILY_API_KEY=tvly-xxxxx
 DATABASE_URL=postgresql://localhost/mydb  
 ```
 
-**作用**：
-- 存放 API 密钥、数据库密码等敏感信息
-- 不同环境（开发/测试/生产）使用不同配置
-- 通过 .gitignore 排除，避免泄露
+**Purpose**:
+- Store API keys, database passwords, and other sensitive information
+- Use different configurations for different environments (development/test/production)
+- Exclude via .gitignore to avoid leakage
 
-#### .gitignore - Git 忽略文件
+#### .gitignore - Git Ignore File
 
 ```gitignore
-# 虚拟环境
+# Virtual environments
 .venv/
 venv/
 
-# 环境变量
+# Environment variables
 .env
 .env.local
 
-# Python 缓存
+# Python cache
 __pycache__/
 *.pyc
 
-# IDE 配置
+# IDE configurations
 .vscode/
 .idea/
 
-# 日志和临时文件
+# Log and temporary files
 *.log
 *.tmp
 ```
 
-**作用**：
-- 指定哪些文件不被 Git 追踪
-- 防止提交敏感信息、临时文件、依赖包等
+**Purpose**:
+- Specify which files should not be tracked by Git
+- Prevent committing sensitive information, temporary files, dependency packages, etc.
 
-#### pyproject.toml - 项目配置文件
+#### pyproject.toml - Project Configuration File
 
 ```toml
 [project]
 name = "langchain-tools"
 version = "1.0.0"
-description = "LangChain 智能体工具集"
+description = "LangChain Agent Tool Set"
 requires-python = ">=3.8"
 dependencies = [
     "langchain>=0.1.0",
@@ -468,86 +468,86 @@ dependencies = [
 ]
 
 [project.scripts]
-my-agent = "agents.my_agent:chat"  # 定义命令行入口
+my-agent = "agents.my_agent:chat"  # Define command-line entry point
 ```
 
-**作用**：
-- 现代 Python 项目的标准配置文件
-- 定义项目依赖、元数据、入口点
-- 被 uv 和 pip 等工具识别
+**Purpose**:
+- Standard configuration file for modern Python projects
+- Define project dependencies, metadata, entry points
+- Recognized by tools like uv and pip
 
-#### uv.lock - 依赖锁定文件
+#### uv.lock - Dependency Lock File
 
 ```python
-# 自动生成，不要手动编辑
-# 记录所有依赖的精确版本和哈希值
+# Automatically generated, do not edit manually
+# Records exact versions and hash values of all dependencies
 ```
 
-**作用**：
-- 锁定所有依赖的精确版本
-- 确保团队成员和环境使用完全相同的依赖
-- 由 uv 自动维护
+**Purpose**:
+- Lock exact versions of all dependencies
+- Ensure team members and environments use exactly the same dependencies
+- Automatically maintained by uv
 
-#### main.py - 主程序入口
+#### main.py - Main Program Entry Point
 
 ```python
-# 程序启动文件
+# Program startup file
 from agents.my_agent import chat
 
 if __name__ == "__main__":
     chat()
 ```
 
-**作用**：
-- 程序的统一入口点
-- 通常只做启动工作，不包含业务逻辑
-- 可以通过 python main.py 运行
+**Purpose**:
+- Unified entry point for the program
+- Usually only does startup work, does not contain business logic
+- Can be run via python main.py
 
-## 首个开发项目 🌟
+## First Development Project 🌟
 
-[LangChain开发首个项目](https://github.com/Lawson-Dong/langchain_develop_first) - 一个基于LangChain的AI Agent开发实验项目
+[LangChain First Development Project](https://github.com/Lawson-Dong/langchain_develop_first) - An AI Agent development experimental project based on LangChain
 
-## LangChain 平台介绍 📚
+## LangChain Platform Introduction 📚
 
-LangChain是一个集成了各种agent开发组件的平台，提供了完整的AI Agent开发生态系统。
+LangChain is a platform that integrates various agent development components, providing a complete AI Agent development ecosystem.
 
-### 相关链接
+### Related Links
 
-- **LangChain官网**：[https://www.langchain.com/](https://www.langchain.com/)
-- **LangSmith**：[https://smith.langchain.com/o/4e44cff0-75d9-4635-9e90-cf134ecac629](https://smith.langchain.com/o/4e44cff0-75d9-4635-9e90-cf134ecac629)
-  - 部署/开发/调试agent一站式平台
-- **LangSmith Fleet**：提供更强大的Agent管理功能
+- **LangChain Official Website**: [https://www.langchain.com/](https://www.langchain.com/)
+- **LangSmith**: [https://smith.langchain.com/o/4e44cff0-75d9-4635-9e90-cf134ecac629](https://smith.langchain.com/o/4e44cff0-75d9-4635-9e90-cf134ecac629)
+  - One-stop platform for deploying/developing/debugging agents
+- **LangSmith Fleet**: Provides more powerful Agent management features
 
-## 开发流程 🚀
+## Development Process 🚀
 
-1. **项目初始化**：使用uv创建项目和虚拟环境
-2. **安装依赖**：添加langchain和相关包
-3. **编写代码**：在app.py中实现AI Agent逻辑
-4. **测试运行**：验证Agent功能
-5. **部署上线**：使用LangSmith部署和监控
+1. **Project Initialization**: Use uv to create project and virtual environment
+2. **Install Dependencies**: Add langchain and related packages
+3. **Write Code**: Implement AI Agent logic in app.py
+4. **Test Run**: Verify Agent functionality
+5. **Deploy Online**: Use LangSmith for deployment and monitoring
 
-## 示例代码 📝
+## Example Code 📝
 
 ```python
-# app.py示例代码
+# app.py example code
 import os
 from dotenv import load_dotenv
 from langchain_deepseek import DeepSeekLLM
 
-# 加载环境变量
+# Load environment variables
 load_dotenv()
 
-# 初始化LLM
+# Initialize LLM
 llm = DeepSeekLLM(
     model="deepseek-chat",
     api_key=os.getenv("DEEPSEEK_API_KEY")
 )
 
-# 测试LLM
+# Test LLM
 response = llm("Hello, LangChain!")
 print(response)
 ```
 
 ---
 
-*开始你的LangChain全栈开发之旅吧！* 🎉
+*Start your LangChain full stack development journey!* 🎉

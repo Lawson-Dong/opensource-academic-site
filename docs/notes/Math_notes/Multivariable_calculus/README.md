@@ -1,68 +1,68 @@
-# 多元函数微分学和矢量分析学 📐
+# Multivariable Calculus and Vector Analysis 📐
 
-多元函数微分学和矢量分析学，是研究由多个自变量决定的函数的微积分和其解析几何性质的学科。
+Multivariable calculus and vector analysis is the study of calculus of functions determined by multiple independent variables and their analytic geometric properties.
 
-## 学习笔记和学习资源 📚
+## Study Notes and Learning Resources 📚
 
-我整理了网上的资源并且上传了我的手写笔记和对练习的手写解答
+I have organized online resources and uploaded my handwritten notes and handwritten solutions to exercises.
 
-### 学习资源
+### Learning Resources
 
-- **MIT视频课程**：[https://www.youtube.com/watch?v=PxCxlsl_YwY&list=PL4C4C8A7D06566F38](https://www.youtube.com/watch?v=PxCxlsl_YwY&list=PL4C4C8A7D06566F38)
-- **MIT课程资料**：[https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/](https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/)
+- **MIT Video Course**: [https://www.youtube.com/watch?v=PxCxlsl_YwY&list=PL4C4C8A7D06566F38](https://www.youtube.com/watch?v=PxCxlsl_YwY&list=PL4C4C8A7D06566F38)
+- **MIT Course Materials**: [https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/](https://ocw.mit.edu/courses/18-02-multivariable-calculus-fall-2007/)
 
-## 课程内容 📖
+## Course Content 📖
 
-### I. 向量和矩阵
+### I. Vectors and Matrices
 
-- **0-2**：向量、点积、行列式；叉积
-- **3-5**：矩阵；逆矩阵、方形系统；平面方程、直线和曲线的参数方程
-- **6**：速度，加速度、开普勒第二定律
-- **7**：复习
+- **0-2**: Vectors, dot product, determinants; cross product
+- **3-5**: Matrices; inverse matrices, square systems; plane equations, parametric equations of lines and curves
+- **6**: Velocity, acceleration, Kepler's second law
+- **7**: Review
 
-### II. 偏导数
+### II. Partial Derivatives
 
-- **8**：等值线；偏导数；切平面近似
-- **9**：最大值-最小值问题；最小二乘
-- **10**：二阶导数测试；边界和无穷大
-- **11**：微分；链式法则
-- **12**：梯度；方向导数；切平面
-- **13**：拉格朗日乘数法
-- **14**：非独立变量
-- **15**：偏微分方程；复习
+- **8**: Level curves; partial derivatives; tangent plane approximations
+- **9**: Max-min problems; least squares
+- **10**: Second derivative test; boundaries and infinity
+- **11**: Differentials; chain rule
+- **12**: Gradient; directional derivatives; tangent planes
+- **13**: Lagrange multipliers
+- **14**: Non-independent variables
+- **15**: Partial differential equations; review
 
-### III. 平面中的二重积分和线积分
+### III. Double Integrals and Line Integrals in the Plane
 
-- **16**：二重积分
-- **17**：极坐标中的二重积分；应用
-- **18**：变量替换
-- **19**：平面中的向量场和线积分
-- **20**：路径独立性和保守场
-- **21**：梯度场和势函数
-- **22**：格林定理
-- **23**：通量；格林定理的法线形式
-- **24**：单连通区域；复习
+- **16**: Double integrals
+- **17**: Double integrals in polar coordinates; applications
+- **18**: Change of variables
+- **19**: Vector fields and line integrals in the plane
+- **20**: Path independence and conservative fields
+- **21**: Gradient fields and potential functions
+- **22**: Green's theorem
+- **23**: Flux; normal form of Green's theorem
+- **24**: Simply connected regions; review
 
-### IV. 三维空间中的三重积分和曲面积分
+### IV. Triple Integrals and Surface Integrals in 3D Space
 
-- **25**：直角坐标系和柱坐标系中的三重积分
-- **26**：球坐标系；表面积
-- **27**：3D中的向量场；曲面积分和通量
-- **28**：散度定理
-- **29**：散度定理（续）：应用和证明
-- **30**：空间中的线积分，旋度，精确性和势
-- **31**：斯托克斯定理
-- **32**：斯托克斯定理（续）；复习
-- **33**：拓扑考虑、麦克斯韦方程组
-- **34-35**：最终复习
+- **25**: Triple integrals in rectangular and cylindrical coordinates
+- **26**: Spherical coordinates; surface area
+- **27**: Vector fields in 3D; surface integrals and flux
+- **28**: Divergence theorem
+- **29**: Divergence theorem (continued): applications and proof
+- **30**: Line integrals in space, curl, exactness and potentials
+- **31**: Stokes' theorem
+- **32**: Stokes' theorem (continued); review
+- **33**: Topological considerations, Maxwell's equations
+- **34-35**: Final review
 
-## 学习方法 🎯
+## Learning Methods 🎯
 
-- [ ] 完成MIT视频课程的学习
-- [ ] 阅读课程资料并做笔记
-- [ ] 完成课后习题
-- [ ] 总结重要概念和公式
+- [ ] Complete MIT video course learning
+- [ ] Read course materials and take notes
+- [ ] Complete homework exercises
+- [ ] Summarize important concepts and formulas
 
 ---
 
-*掌握多元微积分，开启数学新篇章！* 🚀
+*Master multivariable calculus and open a new chapter in mathematics!* 🚀
