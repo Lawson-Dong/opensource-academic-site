@@ -1,343 +1,428 @@
-# Windows PowerShell的Git常用命令 📝
+# Windows PowerShell Git Common Commands 📝
 
-本文件记录了Windows PowerShell中常用的Git命令，用于版本控制和代码管理。
+This document records commonly used Git commands in Windows PowerShell for version control and code management.
 
-## 基础命令
+## Git First Commit Steps - Complete Push Process
+
+### 1. Enter Project Directory
+
+```powershell
+cd "D:\AI application experience\Agent_paper_explainer"
+```
+
+### 2. Initialize Git Repository (if not already initialized)
+
+```powershell
+git init
+```
+
+### 3. Add All Files
+
+```powershell
+git add .
+```
+
+### 4. Commit Files
+
+```powershell
+git commit -m "First commit: Agent paper explainer"
+```
+
+### 5. Add Remote Repository (Link to GitHub)
+
+```powershell
+git remote add origin git@github.com:Lawson-Dong/Agent_paper_explainer.git
+```
+
+### 6. Check Branch Name Before Pushing
+
+```powershell
+git branch
+```
+
+### 7. Push to GitHub
+
+If the branch shows as main:
+
+```powershell
+git push -u origin main
+```
+
+If the branch shows as master:
+
+```powershell
+git push -u origin master
+```
+
+### If Remote Repository Already Exists
+
+You can first check the existing remote repository:
+
+```powershell
+git remote -v
+```
+
+If origin already exists, you can remove it first and then add:
+
+```powershell
+git remote remove origin
+git remote add origin git@github.com:Lawson-Dong/Agent_paper_explainer.git
+```
+
+### If Push Fails and Prompts to Pull First
+
+```powershell
+# If remote repository has content (e.g., has README), pull and merge first
+git pull origin main --allow-unrelated-histories
+
+# After resolving any conflicts, push again
+git push -u origin main
+```
+
+### Verify Push Success
+
+After successful push, visit the following address to view:
+
+```
+https://github.com/Lawson-Dong/Agent_paper_explainer
+```
+
+## Basic Commands
 
 ```bash
-# 查看Git版本
+# Check Git version
 git --version
 
-# 查看Git配置
+# Check Git configuration
 git config --list
 
-# 查看用户配置
+# Check user configuration
 git config user.name
 git config user.email
 
-# 设置用户信息
-git config --global user.name "你的用户名"
-git config --global user.email "你的邮箱"
+# Set user information
+git config --global user.name "Your Username"
+git config --global user.email "Your Email"
 ```
 
-## 仓库操作
+## Repository Operations
 
 ```bash
-# 初始化仓库
+# Initialize repository
 git init
 
-# 克隆远程仓库
-git clone https://github.com/用户名/仓库名.git
+# Clone remote repository
+git clone https://github.com/username/repository.git
 
-# 查看仓库状态
+# Check repository status
 git status
 
-# 查看远程仓库
+# Check remote repository
 git remote -v
 
-# 添加远程仓库
-git remote add origin https://github.com/用户名/仓库名.git
+# Add remote repository
+git remote add origin https://github.com/username/repository.git
 
-# 删除远程仓库
+# Remove remote repository
 git remote remove origin
 
-# 修改远程仓库地址
-git remote set-url origin https://github.com/用户名/新仓库名.git
+# Modify remote repository address
+git remote set-url origin https://github.com/username/new-repository.git
 ```
 
-## 文件操作
+## File Operations
 
 ```bash
-# 添加所有文件
+# Add all files
 git add .
 
-# 添加指定文件
-git add 文件名
+# Add specific file
+git add filename
 
-# 添加指定目录
-git add 目录名/
+# Add specific directory
+git add directoryname/
 
-# 查看未添加的文件
+# Check files not added
 git add -n .
 
-# 查看已添加的文件
+# Check files already added
 git diff --cached
 ```
 
-## 提交操作
+## Commit Operations
 
 ```bash
-# 提交更改
-git commit -m "提交信息"
+# Commit changes
+git commit -m "Commit message"
 
-# 添加并提交
-git commit -am "提交信息"
+# Add and commit
+git commit -am "Commit message"
 
-# 修改最后一次提交
+# Amend last commit
 git commit --amend
 
-# 查看提交历史
+# View commit history
 git log
 
-# 查看简洁的提交历史
+# View concise commit history
 git log --oneline
 
-# 查看图形化的提交历史
+# View graphical commit history
 git log --graph --oneline
 ```
 
-## 分支操作
+## Branch Operations
 
 ```bash
-# 查看所有分支
+# View all branches
 git branch
 
-# 查看远程分支
+# View remote branches
 git branch -r
 
-# 查看所有分支（包括远程）
+# View all branches (including remote)
 git branch -a
 
-# 创建新分支
-git branch 分支名
+# Create new branch
+git branch branchname
 
-# 切换分支
-git checkout 分支名
+# Switch branch
+git checkout branchname
 
-# 创建并切换到新分支
-git checkout -b 分支名
+# Create and switch to new branch
+git checkout -b branchname
 
-# 删除本地分支
-git branch -d 分支名
+# Delete local branch
+git branch -d branchname
 
-# 删除远程分支
-git push origin --delete 分支名
+# Delete remote branch
+git push origin --delete branchname
 
-# 合并分支
-git merge 分支名
+# Merge branch
+git merge branchname
 ```
 
-## 推送和拉取
+## Push and Pull
 
 ```bash
-# 推送到远程仓库
+# Push to remote repository
 git push
 
-# 推送到指定分支
-git push origin 分支名
+# Push to specific branch
+git push origin branchname
 
-# 首次推送（设置上游分支）
-git push -u origin 分支名
+# First push (set upstream branch)
+git push -u origin branchname
 
-# 强制推送（谨慎使用）
+# Force push (use with caution)
 git push -f
 
-# 拉取远程更新
+# Pull remote updates
 git pull
 
-# 拉取指定分支
-git pull origin 分支名
+# Pull specific branch
+git pull origin branchname
 
-# 获取远程更新（不合并）
+# Get remote updates (without merging)
 git fetch
 
-# 获取指定分支的更新
-git fetch origin 分支名
+# Get updates for specific branch
+git fetch origin branchname
 ```
 
-## 撤销操作
+## Undo Operations
 
 ```bash
-# 撤销工作区的修改
-git checkout -- 文件名
+# Undo working directory modifications
+git checkout -- filename
 
-# 撤销暂存区的修改
-git reset HEAD 文件名
+# Undo staging area modifications
+git reset HEAD filename
 
-# 撤销最后一次提交（保留修改）
+# Undo last commit (keep modifications)
 git reset --soft HEAD~1
 
-# 撤销最后一次提交（不保留修改）
+# Undo last commit (discard modifications)
 git reset --hard HEAD~1
 
-# 回退到指定提交
-git reset --hard 提交哈希值
+# Revert to specific commit
+git reset --hard commithash
 
-# 查看操作历史
+# View operation history
 git reflog
 
-# 恢复到指定状态
+# Restore to specific state
 git reset --hard HEAD@{n}
 ```
 
-## 标签操作
+## Tag Operations
 
 ```bash
-# 创建标签
-git tag 标签名
+# Create tag
+git tag tagname
 
-# 创建带注释的标签
-git tag -a 标签名 -m "标签说明"
+# Create annotated tag
+git tag -a tagname -m "Tag description"
 
-# 查看所有标签
+# View all tags
 git tag
 
-# 查看标签详情
-git show 标签名
+# View tag details
+git show tagname
 
-# 推送标签到远程
-git push origin 标签名
+# Push tag to remote
+git push origin tagname
 
-# 推送所有标签到远程
+# Push all tags to remote
 git push origin --tags
 
-# 删除本地标签
-git tag -d 标签名
+# Delete local tag
+git tag -d tagname
 
-# 删除远程标签
-git push origin --delete tag 标签名
+# Delete remote tag
+git push origin --delete tag tagname
 ```
 
-## 查看差异
+## View Differences
 
 ```bash
-# 查看工作区与暂存区的差异
+# View differences between working directory and staging area
 git diff
 
-# 查看暂存区与最后一次提交的差异
+# View differences between staging area and last commit
 git diff --cached
 
-# 查看工作区与最后一次提交的差异
+# View differences between working directory and last commit
 git diff HEAD
 
-# 查看两个提交之间的差异
-git diff 提交1 提交2
+# View differences between two commits
+git diff commit1 commit2
 
-# 查看指定文件的差异
-git diff 文件名
+# View differences for specific file
+git diff filename
 ```
 
-## 储藏操作
+## Stash Operations
 
 ```bash
-# 储藏当前工作
+# Stash current work
 git stash
 
-# 储藏并添加说明
-git stash save "储藏说明"
+# Stash with description
+git stash save "Stash description"
 
-# 查看储藏列表
+# View stash list
 git stash list
 
-# 应用最近的储藏
+# Apply most recent stash
 git stash pop
 
-# 应用指定的储藏
+# Apply specific stash
 git stash apply stash@{n}
 
-# 删除储藏
+# Drop stash
 git stash drop stash@{n}
 
-# 清空所有储藏
+# Clear all stashes
 git stash clear
 ```
 
-## 常用组合命令
+## Common Combined Commands
 
 ```bash
-# 完整的提交流程
+# Complete commit process
 git add .
-git commit -m "提交信息"
+git commit -m "Commit message"
 git push
 
-# 快速查看状态
+# Quick status check
 git status -s
 
-# 查看最近的提交
+# View recent commits
 git log -3 --oneline
 
-# 查看文件修改历史
-git log --follow 文件名
+# View file modification history
+git log --follow filename
 
-# 查看文件在某次提交中的内容
-git show 提交哈希值:文件名
+# View file content in specific commit
+git show commithash:filename
 
-# 查看某次提交的详细信息
-git show 提交哈希值
+# View detailed information for specific commit
+git show commithash
 
-# 查看当前分支
+# View current branch
 git rev-parse --abbrev-ref HEAD
 
-# 查看远程仓库地址
+# View remote repository address
 git config --get remote.origin.url
 ```
 
-## PowerShell特定技巧
+## PowerShell Specific Tips
 
 ```bash
-# 在PowerShell中使用Git命令时，如果路径包含空格，需要用引号括起来
-cd "D:\AI application experience\vibe coding\Github静态个人网站"
+# When using Git commands in PowerShell, if path contains spaces, enclose in quotes
+cd "D:\AI application experience\vibe coding\Github Static Personal Website"
 
-# 查看当前目录
+# View current directory
 Get-Location
 
-# 列出当前目录的文件
+# List files in current directory
 Get-ChildItem
 
-# 在PowerShell中查看Git状态
+# Check Git status in PowerShell
 git status
 
-# 使用PowerShell的别名
-# git status 可以缩写为 git st（如果配置了别名）
-# git checkout 可以缩写为 git co（如果配置了别名）
+# Use PowerShell aliases
+# git status can be abbreviated as git st (if configured)
+# git checkout can be abbreviated as git co (if configured)
 ```
 
-## 常见问题解决
+## Common Issue Resolution
 
-### 1. PowerShell执行策略限制
+### 1. PowerShell Execution Policy Restriction
 
 ```bash
-# 查看当前执行策略
+# View current execution policy
 Get-ExecutionPolicy
 
-# 临时修改执行策略（仅当前会话）
+# Temporarily modify execution policy (current session only)
 Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
 
-# 永久修改执行策略（需要管理员权限）
+# Permanently modify execution policy (requires administrator privileges)
 Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned
 ```
 
-### 2. 推送失败
+### 2. Push Failure
 
 ```bash
-# 推送失败时，先拉取更新
+# When push fails, pull updates first
 git pull
 
-# 解决冲突后再推送
+# Resolve conflicts and push again
 git add .
-git commit -m "解决冲突"
+git commit -m "Resolve conflicts"
 git push
 ```
 
-### 3. 远程仓库已存在
+### 3. Remote Repository Already Exists
 
 ```bash
-# 查看当前远程仓库
+# View current remote repository
 git remote -v
 
-# 删除旧的远程仓库
+# Remove old remote repository
 git remote remove origin
 
-# 添加新的远程仓库
-git remote add origin https://github.com/用户名/仓库名.git
+# Add new remote repository
+git remote add origin https://github.com/username/repository.git
 ```
 
-## 学习资源
+## Learning Resources
 
-- **Git官方文档**：[https://git-scm.com/doc](https://git-scm.com/doc)
-- **GitHub Help**：[https://docs.github.com/en](https://docs.github.com/en)
-- **Git Cheat Sheet**：[https://education.github.com/git-cheat-sheet-education.pdf](https://education.github.com/git-cheat-sheet-education.pdf)
+- **Git Official Documentation**: [https://git-scm.com/doc](https://git-scm.com/doc)
+- **GitHub Help**: [https://docs.github.com/en](https://docs.github.com/en)
+- **Git Cheat Sheet**: [https://education.github.com/git-cheat-sheet-education.pdf](https://education.github.com/git-cheat-sheet-education.pdf)
 
 ---
 
-*掌握这些Git命令，让版本控制变得更加高效！* 🚀
+*Master these Git commands to make version control more efficient!* 🚀
