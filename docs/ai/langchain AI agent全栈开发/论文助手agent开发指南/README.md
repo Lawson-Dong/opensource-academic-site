@@ -743,6 +743,34 @@ class SafeCodeExecutor:
 
 ---
 
+## Project Examples
+
+### Agent Paper Explainer
+
+A Streamlit-based Q&A system for physics and AI papers using LangChain, Chroma, and OpenAI.
+
+**Features:**
+- Upload single or multiple PDF papers
+- Automatic PDF parsing and chunking optimized for physics content
+- Vector embeddings using local models (no API key needed)
+- Chroma vector database for storage and retrieval
+- Conversational chat interface like DeepSeek - continuous Q&A with chat history
+- Display source documents for answers with expandable details
+- Sidebar for document management and chat controls
+
+**Tech Stack:**
+- Python 3.14
+- Streamlit
+- LangChain
+- DeepSeek API
+- Chroma
+- pypdf
+- FakeEmbeddings
+
+**Project Repository:** [https://github.com/Lawson-Dong/Agent_paper_explainer](https://github.com/Lawson-Dong/Agent_paper_explainer)
+
+---
+
 ## Resource Links
 
 ### GROBID
