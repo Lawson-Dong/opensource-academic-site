@@ -1,6 +1,6 @@
-# Python Classes Introduction 🐍
+# Python  Introduction 🐍
 
-This document provides an introduction to classes in Python, including basic concepts, syntax, and best practices.
+This document provides an introduction to  Python, including basic concepts, syntax, and best practices.
 
 ## What is a Class?
 
@@ -205,7 +205,15 @@ print(f"Sum of 10 and 20: {sum_result}")  # Output: Sum of 10 and 20: 30
 
 ### What is a Function?
 
-A function is a block of organized, reusable code that performs a specific task. Functions help break down complex problems into smaller, manageable parts and promote code reusability.
+A function is a block of organized, reusable code that performs a specific task. The essence of a function is to define a series of operations and organize them into a package. When you call a function, you are executing this package of operations.
+
+Functions help break down complex problems into smaller, manageable parts and promote code reusability. They encapsulate specific functionality, allowing you to:
+- Reuse code without duplication
+- Make code more readable and maintainable
+- Test individual components separately
+- Pass different inputs to get different outputs
+
+In essence, a function is a named collection of operations that can be executed together by calling the function's name.
 
 ### Function Syntax
 
@@ -374,6 +382,53 @@ def get_person_info(name: str) -> Optional[Dict[str, str]]:
     return None
 ```
 
+#### 8. Anonymous Functions (Lambda Functions)
+
+Anonymous functions, also known as lambda functions, are small, one-line functions that don't have a name. They are defined using the `lambda` keyword.
+
+**Syntax:**
+```python
+lambda parameters: expression
+```
+
+**Key Characteristics:**
+- Lambda functions can take any number of parameters
+- They can only contain a single expression
+- The expression is automatically returned
+- They are often used as arguments to higher-order functions
+
+**Examples:**
+
+```python
+# Basic lambda function
+add = lambda x, y: x + y
+print(add(5, 3))  # Output: 8
+
+# Lambda with a single parameter
+square = lambda x: x ** 2
+print(square(4))  # Output: 16
+
+# Using lambda with map()
+numbers = [1, 2, 3, 4, 5]
+squared_numbers = list(map(lambda x: x ** 2, numbers))
+print(squared_numbers)  # Output: [1, 4, 9, 16, 25]
+
+# Using lambda with filter()
+even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+print(even_numbers)  # Output: [2, 4]
+
+# Using lambda with sorted()
+students = ["Alice", "Bob", "Charlie", "David"]
+sorted_by_length = sorted(students, key=lambda x: len(x))
+print(sorted_by_length)  # Output: ['Bob', 'Alice', 'David', 'Charlie']
+```
+
+**When to Use Lambda Functions:**
+- For simple operations that can be expressed in a single line
+- As arguments to higher-order functions like `map()`, `filter()`, and `sorted()`
+- When you need a small function for a short period of time
+- As return values from other functions
+
 ### Return Statement
 
 The `return` statement is used to exit a function and optionally return a value to the caller:
@@ -443,6 +498,13 @@ Function nesting refers to two related concepts: **nested calling** (calling one
 ### 1. Nested Calling (Function Composition)
 
 Nested calling is when one function is called inside another function call. This is also known as function composition.
+
+**Execution Order in Nested Calling:**
+When functions are nested, the innermost function is executed first, then the outer functions. This is because the inner function's result is needed as an argument for the outer function.
+
+For example, in `multiply(add(2, 3), 4)`:
+1. First, `add(2, 3)` is executed, returning 5
+2. Then, `multiply(5, 4)` is executed, returning 20
 
 #### Basic Nested Calling
 
@@ -598,6 +660,116 @@ print(validate_age(25))  # Output: Value 25 is valid
 print(validate_age(150))  # Output: Value 150 is above maximum 120
 print(validate_score(95))  # Output: Value 95 is valid
 ```
+
+## Variable Scope
+
+Variable scope refers to the region of code where a variable is accessible. Python has four levels of scope, often remembered by the acronym LEGB:
+
+1. **Local** (L): Variables defined inside a function
+2. **Enclosing** (E): Variables defined in the enclosing function (for nested functions)
+3. **Global** (G): Variables defined at the module level
+4. **Built-in** (B): Predefined variables in Python
+
+### Local Variables
+
+Local variables are defined inside a function and are only accessible within that function.
+
+```python
+def my_function():
+    local_var = "I'm local"
+    print(local_var)  # Output: I'm local
+
+my_function()
+# print(local_var)  # This would raise a NameError
+```
+
+### Global Variables
+
+Global variables are defined at the module level and are accessible throughout the module.
+
+```python
+global_var = "I'm global"
+
+def my_function():
+    print(global_var)  # Output: I'm global
+
+my_function()
+print(global_var)  # Output: I'm global
+```
+
+### Modifying Global Variables Inside Functions
+
+To modify a global variable inside a function, you need to use the `global` keyword.
+
+```python
+global_counter = 0
+
+def increment_counter():
+    global global_counter  # Declare that we're using the global variable
+    global_counter += 1
+    print(f"Counter inside function: {global_counter}")
+
+increment_counter()  # Output: Counter inside function: 1
+increment_counter()  # Output: Counter inside function: 2
+print(f"Counter outside function: {global_counter}")  # Output: Counter outside function: 2
+```
+
+### Enclosing Scope (Nonlocal Variables)
+
+For nested functions, the inner function can access variables from the outer function's scope. To modify these variables, use the `nonlocal` keyword.
+
+**Important Note about nonlocal:**
+The `nonlocal` keyword only modifies variables in the immediate outer (enclosing) function scope. It cannot modify variables in global scope or variables in outer scopes beyond the immediate parent function.
+
+When using `nonlocal`, it changes the value of the variable in the parent function to match the value assigned in the inner function.
+
+```python
+def outer_function():
+    outer_var = "I'm from outer function"
+    
+    def inner_function():
+        nonlocal outer_var  # Declare that we're using the variable from outer scope
+        outer_var = "Modified by inner function"
+        print(f"Inner function: {outer_var}")
+    
+    inner_function()
+    print(f"Outer function: {outer_var}")
+
+outer_function()
+# Output:
+# Inner function: Modified by inner function
+# Outer function: Modified by inner function
+```
+
+### Scope Resolution Example
+
+```python
+# Global variable
+x = 10
+
+def outer():
+    # Enclosing scope variable
+    x = 20
+    
+    def inner():
+        # Local variable
+        x = 30
+        print(f"Inner scope: x = {x}")  # Output: Inner scope: x = 30
+    
+    inner()
+    print(f"Outer scope: x = {x}")  # Output: Outer scope: x = 20
+
+outer()
+print(f"Global scope: x = {x}")  # Output: Global scope: x = 10
+```
+
+### Best Practices for Variable Scope
+
+1. **Use local variables** for temporary values that are only needed within a function
+2. **Use global variables** sparingly, only for values that need to be shared across multiple functions
+3. **Avoid shadowing** (naming a local variable the same as a global variable)
+4. **Use nonlocal** for modifying variables in the enclosing scope
+5. **Keep variable scopes as narrow as possible** to avoid unintended side effects
 
 ## Python Data Structures
 
