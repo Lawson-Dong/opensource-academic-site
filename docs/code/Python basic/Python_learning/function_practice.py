@@ -125,16 +125,55 @@
 
 #Using properties of the dictionary
 
-first_name, last_name, age = input(f"please input your first name: "), input(f"please input your last name: "), input(f"please input your age: ")
-def get_formatted_name(first_name, last_name, age = ""):
-    """return a dictionary with the age information of a person"""
-    person = {"first" : first_name, "last" : last_name}
-    if age:
-        person['age'] = age
-    return person
+#first_name, last_name, age = input(f"please input your first name: "), input(f"please input your last name: "), input(f"please input your age: ")
+#def get_formatted_name(first_name, last_name, age = ""):
+#    """return a dictionary with the age information of a person"""
+#    person = {"first" : first_name, "last" : last_name}
+#    if age:
+#        person['age'] = age
+#    return person
 
-personal_information = get_formatted_name(first_name, last_name, age)
-print(personal_information)
+#personal_information = get_formatted_name(first_name, last_name, age)
+#print(personal_information)
 
+##8.3.4 combining function and while loop
+
+
+
+#def get_formatted_name(first_name, last_name):
+#    """return a full name, neatly formatted"""
+#    full_name = f"{first_name} {last_name}"
+#    return print(full_name.title())
+
+#while True:
+#    print("\nPlease tell me your name: ")
+#    print("Enter 'q' at any time to quit.")
+    
+#    f_name = input("First name: ")
+#    if f_name == 'q':
+#        print("You quit to input your name.")
+#        break
+#    l_name = input("Last name: ")
+#    if l_name == 'q':
+#        print("You quit to input your name.")
+#        break
+        
+    
+#    get_formatted_name(f_name, l_name)
+    
+    
+   
+#8.4 pass the list to a function
+
+
+usernames = [input(f"Please enter the name of user {i+1}: ") for i in range(3)]
+
+def greet_users(names):
+    """greet each user in the list"""
+    for name in names:
+        msg = f"Hello, {name.title()}!"
+        print(msg)
+
+greet_users(usernames)
 
 
