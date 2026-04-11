@@ -1,525 +1,525 @@
-# PyTorch 使用教程 🚀
+# PyTorch Tutorial 🚀
 
-本教程介绍PyTorch的基本使用方法，包括张量操作、自动求导、构建神经网络，以及训练一个简单的机器学习模型。
+This tutorial introduces the basic usage of PyTorch, including tensor operations, automatic differentiation, building neural networks, and training a simple machine learning model.
 
-## 什么是PyTorch?
+## What is PyTorch?
 
-PyTorch是一个开源的机器学习框架，由Facebook开发，广泛用于深度学习研究和应用开发。它提供了强大的张量计算和自动求导功能，使深度学习模型的构建和训练变得更加简单。
+PyTorch is an open-source machine learning framework developed by Facebook, widely used for deep learning research and application development. It provides powerful tensor computation and automatic differentiation capabilities, making it easier to build and train deep learning models.
 
-## 环境搭建
+## Environment Setup
 
-### 安装PyTorch
+### Installing PyTorch
 
 ```bash
-# 使用pip安装PyTorch (CPU版本)
+# Install PyTorch (CPU version) using pip
 pip install torch torchvision torchaudio
 
-# 使用pip安装PyTorch (CUDA 11.8版本)
+# Install PyTorch (CUDA 11.8 version) using pip
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 
-# 使用uv安装
+# Install using uv
 uv add torch torchvision torchaudio
 ```
 
-### 验证安装
+### Verifying Installation
 
 ```python
-import torch                                    # 导入PyTorch库
-print(torch.__version__)                        # 打印当前PyTorch版本号
-print(torch.cuda.is_available())                # 检查当前系统是否支持CUDA（即是否有可用的NVIDIA GPU）
+import torch                                    # Import PyTorch library
+print(torch.__version__)                        # Print current PyTorch version
+print(torch.cuda.is_available())                # Check if CUDA is available (i.e., if there's an NVIDIA GPU)
 ```
 
-## 基本张量操作
+## Basic Tensor Operations
 
-### 创建张量
+### Creating Tensors
 
 ```python
-import torch                                    # 导入PyTorch库
+import torch                                    # Import PyTorch library
 
-# 创建标量（0维张量，只有一个数值）
-scalar = torch.tensor(5.0)                      # 创建一个值为5.0的标量张量
-print(f"标量: {scalar}")                        # 输出: 标量: tensor(5.)
-print(f"标量形状: {scalar.shape}")              # 输出: 标量形状: torch.Size([])，标量没有维度
+# Create a scalar (0-dimensional tensor, single value)
+scalar = torch.tensor(5.0)                      # Create a scalar tensor with value 5.0
+print(f"Scalar: {scalar}")                      # Output: Scalar: tensor(5.)
+print(f"Scalar shape: {scalar.shape}")          # Output: Scalar shape: torch.Size([]), scalars have no dimensions
 
-# 创建向量（1维张量）
-vector = torch.tensor([1.0, 2.0, 3.0])         # 创建一个包含3个元素的一维张量
-print(f"向量: {vector}")                        # 输出: 向量: tensor([1., 2., 3.])
-print(f"向量形状: {vector.shape}")              # 输出: 向量形状: torch.Size([3])，表示长度为3
+# Create a vector (1-dimensional tensor)
+vector = torch.tensor([1.0, 2.0, 3.0])         # Create a 1D tensor with 3 elements
+print(f"Vector: {vector}")                      # Output: Vector: tensor([1., 2., 3.])
+print(f"Vector shape: {vector.shape}")          # Output: Vector shape: torch.Size([3]), length 3
 
-# 创建矩阵（2维张量）
-matrix = torch.tensor([[1.0, 2.0], [3.0, 4.0]])  # 创建一个2行2列的二维张量
-print(f"矩阵: {matrix}")                        # 输出: 矩阵: tensor([[1., 2.], [3., 4.]])
-print(f"矩阵形状: {matrix.shape}")              # 输出: 矩阵形状: torch.Size([2, 2])，2行2列
+# Create a matrix (2-dimensional tensor)
+matrix = torch.tensor([[1.0, 2.0], [3.0, 4.0]])  # Create a 2x2 2D tensor
+print(f"Matrix: {matrix}")                      # Output: Matrix: tensor([[1., 2.], [3., 4.]])
+print(f"Matrix shape: {matrix.shape}")          # Output: Matrix shape: torch.Size([2, 2]), 2 rows 2 columns
 
-# 创建3维张量（类似RGB图像，通道×高×宽）
-tensor_3d = torch.tensor([[[1.0, 2.0], [3.0, 4.0]], [[5.0, 6.0], [7.0, 8.0]]])  # 2×2×2的三维张量
-print(f"3维张量: {tensor_3d}")                  # 输出3维张量的所有元素
-print(f"3维张量形状: {tensor_3d.shape}")        # 输出: 3维张量形状: torch.Size([2, 2, 2])
+# Create a 3-dimensional tensor (similar to RGB image, channel×height×width)
+tensor_3d = torch.tensor([[[1.0, 2.0], [3.0, 4.0]], [[5.0, 6.0], [7.0, 8.0]]])  # 2×2×2 3D tensor
+print(f"3D tensor: {tensor_3d}")                  # Output all elements of the 3D tensor
+print(f"3D tensor shape: {tensor_3d.shape}")        # Output: 3D tensor shape: torch.Size([2, 2, 2])
 
-# 创建全零张量（常用于初始化偏置或掩码）
-zeros = torch.zeros((2, 3))                     # 创建一个2行3列、所有元素为0的张量
-print(f"全零张量: {zeros}")                     # 输出: tensor([[0., 0., 0.], [0., 0., 0.]])
+# Create a tensor of zeros (often used for initializing biases or masks)
+zeros = torch.zeros((2, 3))                     # Create a 2x3 tensor with all elements 0
+print(f"Zeros tensor: {zeros}")                     # Output: tensor([[0., 0., 0.], [0., 0., 0.]])
 
-# 创建全一张量（常用于初始化权重或掩码）
-ones = torch.ones((2, 3))                       # 创建一个2行3列、所有元素为1的张量
-print(f"全一张量: {ones}")                       # 输出: tensor([[1., 1., 1.], [1., 1., 1.]])
+# Create a tensor of ones (often used for initializing weights or masks)
+ones = torch.ones((2, 3))                       # Create a 2x3 tensor with all elements 1
+print(f"Ones tensor: {ones}")                       # Output: tensor([[1., 1., 1.], [1., 1., 1.]])
 
-# 创建随机张量（值在[0, 1)之间均匀分布，常用于初始化权重）
-random_tensor = torch.rand((2, 3))              # 创建一个2行3列、元素为随机数的张量
-print(f"随机张量: {random_tensor}")              # 输出随机生成的2×3张量
+# Create a random tensor (values uniformly distributed between [0, 1), often used for weight initialization)
+random_tensor = torch.rand((2, 3))              # Create a 2x3 tensor with random values
+print(f"Random tensor: {random_tensor}")              # Output the randomly generated 2×3 tensor
 ```
 
-### 张量运算
+### Tensor Operations
 
 ```python
-import torch                                    # 导入PyTorch库
+import torch                                    # Import PyTorch library
 
-# 创建两个一维张量用于演示运算
-a = torch.tensor([1.0, 2.0, 3.0])              # 创建向量a
-b = torch.tensor([4.0, 5.0, 6.0])              # 创建向量b
+# Create two 1D tensors for demonstration
+a = torch.tensor([1.0, 2.0, 3.0])              # Create vector a
+b = torch.tensor([4.0, 5.0, 6.0])              # Create vector b
 
-# 逐元素加法：对应位置元素相加
-c = a + b                                       # 等价于 torch.add(a, b)
-print(f"a + b: {c}")                            # 输出: tensor([5., 7., 9.])
+# Element-wise addition: add corresponding elements
+c = a + b                                       # Equivalent to torch.add(a, b)
+print(f"a + b: {c}")                            # Output: tensor([5., 7., 9.])
 
-# 逐元素减法：对应位置元素相减
-d = a - b                                       # 等价于 torch.sub(a, b)
-print(f"a - b: {d}")                            # 输出: tensor([-3., -3., -3.])
+# Element-wise subtraction: subtract corresponding elements
+d = a - b                                       # Equivalent to torch.sub(a, b)
+print(f"a - b: {d}")                            # Output: tensor([-3., -3., -3.])
 
-# 逐元素乘法（Hadamard积）：对应位置元素相乘，不是矩阵乘法
-e = a * b                                       # 等价于 torch.mul(a, b)
-print(f"a * b: {e}")                            # 输出: tensor([ 4., 10., 18.])
+# Element-wise multiplication (Hadamard product): multiply corresponding elements, not matrix multiplication
+e = a * b                                       # Equivalent to torch.mul(a, b)
+print(f"a * b: {e}")                            # Output: tensor([ 4., 10., 18.])
 
-# 逐元素除法：对应位置元素相除
-f = a / b                                       # 等价于 torch.div(a, b)
-print(f"a / b: {f}")                            # 输出: tensor([0.2500, 0.4000, 0.5000])
+# Element-wise division: divide corresponding elements
+f = a / b                                       # Equivalent to torch.div(a, b)
+print(f"a / b: {f}")                            # Output: tensor([0.2500, 0.4000, 0.5000])
 
-# 矩阵乘法：2×2矩阵乘以2×1向量，结果为2×1向量
+# Matrix multiplication: 2×2 matrix multiplied by 2×1 vector, result is 2×1 vector
 g = torch.matmul(torch.tensor([[1, 2], [3, 4]]), torch.tensor([[5], [6]]))
-# 计算过程: [[1*5+2*6], [3*5+4*6]] = [[17], [39]]
-print(f"矩阵乘法: {g}")                         # 输出: tensor([[17], [39]])
+# Calculation process: [[1*5+2*6], [3*5+4*6]] = [[17], [39]]
+print(f"Matrix multiplication: {g}")                         # Output: tensor([[17], [39]])
 
-# 广播机制：将一维张量[10.0, 20.0]自动扩展为2×2，然后逐元素相加
+# Broadcasting: automatically expand 1D tensor [10.0, 20.0] to 2×2, then element-wise addition
 h = torch.tensor([[1.0, 2.0], [3.0, 4.0]]) + torch.tensor([10.0, 20.0])
-# 等价于: [[1,2],[3,4]] + [[10,20],[10,20]] = [[11,22],[13,24]]
-print(f"广播操作: {h}")                         # 输出: tensor([[11., 22.], [13., 24.]])
+# Equivalent to: [[1,2],[3,4]] + [[10,20],[10,20]] = [[11,22],[13,24]]
+print(f"Broadcasting operation: {h}")                         # Output: tensor([[11., 22.], [13., 24.]])
 ```
 
-## 自动求导
+## Automatic Differentiation
 
 ```python
-import torch                                    # 导入PyTorch库
+import torch                                    # Import PyTorch library
 
-# 创建需要求导的张量，requires_grad=True告诉PyTorch需要跟踪该张量的所有操作
-x = torch.tensor(3.0, requires_grad=True)       # x = 3.0，标记为需要计算梯度
-y = torch.tensor(5.0, requires_grad=True)       # y = 5.0，标记为需要计算梯度
+# Create tensors that require gradient, requires_grad=True tells PyTorch to track all operations on this tensor
+x = torch.tensor(3.0, requires_grad=True)       # x = 3.0, marked for gradient calculation
+y = torch.tensor(5.0, requires_grad=True)       # y = 5.0, marked for gradient calculation
 
-# 定义计算图：z = 2x + y²
+# Define computation graph: z = 2x + y²
 z = 2 * x + y ** 2                             # z = 2*3 + 5² = 6 + 25 = 31
-print(f"z = {z}")                               # 输出: z = tensor(31., grad_fn=<AddBackward0>)
+print(f"z = {z}")                               # Output: z = tensor(31., grad_fn=<AddBackward0>)
 
-# 反向传播：自动计算z对x和y的偏导数
-z.backward()                                    # 计算梯度：dz/dx = 2, dz/dy = 2y = 10
+# Backward pass: automatically calculate partial derivatives of z with respect to x and y
+z.backward()                                    # Calculate gradients: dz/dx = 2, dz/dy = 2y = 10
 
-# 查看计算得到的梯度
-print(f"x的梯度: {x.grad}")                     # 输出: 2.0，因为 dz/dx = d(2x+y²)/dx = 2
-print(f"y的梯度: {y.grad}")                     # 输出: 10.0，因为 dz/dy = d(2x+y²)/dy = 2y = 2×5 = 10
+# View the calculated gradients
+print(f"Gradient of x: {x.grad}")                     # Output: 2.0, because dz/dx = d(2x+y²)/dx = 2
+print(f"Gradient of y: {y.grad}")                     # Output: 10.0, because dz/dy = d(2x+y²)/dy = 2y = 2×5 = 10
 
-# 使用torch.no_grad()上下文管理器禁用梯度跟踪
-# 在模型评估阶段使用，可以节省内存并加快计算速度
-with torch.no_grad():                           # 进入不跟踪梯度的上下文
-    w = x * y                                   # 计算w = 3 × 5 = 15，但不记录梯度
-    print(f"w = {w}")                           # 输出: w = tensor(15.)
-    print(f"w.requires_grad = {w.requires_grad}")  # 输出: False，w不会跟踪梯度
+# Use torch.no_grad() context manager to disable gradient tracking
+# Used during model evaluation to save memory and speed up computation
+with torch.no_grad():                           # Enter context where gradients are not tracked
+    w = x * y                                   # Calculate w = 3 × 5 = 15, but don't record gradients
+    print(f"w = {w}")                           # Output: w = tensor(15.)
+    print(f"w.requires_grad = {w.requires_grad}")  # Output: False, w won't track gradients
 ```
 
-## 构建简单的神经网络
+## Building a Simple Neural Network
 
-### 基本网络结构
+### Basic Network Structure
 
 ```python
-import torch                                    # 导入PyTorch库
-import torch.nn as nn                           # 导入神经网络模块，包含层、损失函数等
+import torch                                    # Import PyTorch library
+import torch.nn as nn                           # Import neural network module, contains layers, loss functions, etc.
 
-# 定义一个简单的全连接神经网络，继承自nn.Module（所有PyTorch模型的基类）
+# Define a simple fully connected neural network, inheriting from nn.Module (base class for all PyTorch models)
 class SimpleNet(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
-        # 调用父类nn.Module的构造函数，必须执行这一步
+        # Call parent class nn.Module's constructor, must do this
         super(SimpleNet, self).__init__()
-        # 定义第一层：全连接层，将输入从input_size维映射到hidden_size维
-        self.fc1 = nn.Linear(input_size, hidden_size)   # 包含权重矩阵W和偏置向量b
-        # 定义激活函数：ReLU，引入非线性，f(x) = max(0, x)
+        # Define first layer: fully connected layer, maps input from input_size dimensions to hidden_size dimensions
+        self.fc1 = nn.Linear(input_size, hidden_size)   # Contains weight matrix W and bias vector b
+        # Define activation function: ReLU, introduces non-linearity, f(x) = max(0, x)
         self.relu = nn.ReLU()
-        # 定义第二层：全连接层，将hidden_size维映射到output_size维
+        # Define second layer: fully connected layer, maps hidden_size dimensions to output_size dimensions
         self.fc2 = nn.Linear(hidden_size, output_size)
     
-    # 定义前向传播：数据通过网络的过程
+    # Define forward pass: process of data passing through the network
     def forward(self, x):
-        out = self.fc1(x)                       # 输入x经过第一层线性变换：out = Wx + b
-        out = self.relu(out)                    # 经过ReLU激活函数，引入非线性
-        out = self.fc2(out)                     # 经过第二层线性变换，得到最终输出
-        return out                              # 返回网络输出
+        out = self.fc1(x)                       # Input x passes through first linear transformation: out = Wx + b
+        out = self.relu(out)                    # Pass through ReLU activation function, introducing non-linearity
+        out = self.fc2(out)                     # Pass through second linear transformation, get final output
+        return out                              # Return network output
 
-# 创建网络实例：输入维度2，隐藏层维度10，输出维度1
+# Create network instance: input dimension 2, hidden layer dimension 10, output dimension 1
 model = SimpleNet(input_size=2, hidden_size=10, output_size=1)
-print(model)                                    # 打印网络结构，显示各层信息
+print(model)                                    # Print network structure, showing layer information
 
-# 测试网络：输入一个样本，查看输出
-input_tensor = torch.tensor([[1.0, 2.0]])       # 创建一个1×2的输入张量（1个样本，2个特征）
-output = model(input_tensor)                    # 将输入传入网络，执行前向传播
-print(f"网络输出: {output}")                    # 输出网络的预测结果（随机初始化的权重，所以结果是随机的）
+# Test network: input a sample, view output
+input_tensor = torch.tensor([[1.0, 2.0]])       # Create a 1×2 input tensor (1 sample, 2 features)
+output = model(input_tensor)                    # Pass input through network, perform forward pass
+print(f"Network output: {output}")                    # Output network prediction (random due to randomly initialized weights)
 ```
 
-## 训练一个简单的线性回归模型
+## Training a Simple Linear Regression Model
 
-### 完整训练代码
+### Complete Training Code
 
 ```python
-import torch                                    # 导入PyTorch库
-import torch.nn as nn                           # 导入神经网络模块
-import torch.optim as optim                     # 导入优化器模块（SGD、Adam等）
-import matplotlib.pyplot as plt                 # 导入绘图库，用于可视化结果
-import numpy as np                              # 导入NumPy，用于生成模拟数据
+import torch                                    # Import PyTorch library
+import torch.nn as nn                           # Import neural network module
+import torch.optim as optim                     # Import optimizer module (SGD, Adam, etc.)
+import matplotlib.pyplot as plt                 # Import plotting library for visualizing results
+import numpy as np                              # Import NumPy for generating simulated data
 
-# ========== 1. 生成模拟数据 ==========
-np.random.seed(42)                              # 设置随机种子，保证每次运行结果一致
-x = np.random.rand(100, 1) * 10                # 生成100个[0, 10)之间的随机数作为特征x
-y = 2 * x + 1 + np.random.randn(100, 1) * 0.5  # 生成标签y = 2x + 1 + 噪声，模拟真实数据
+# ========== 1. Generate Simulated Data ==========
+np.random.seed(42)                              # Set random seed to ensure consistent results
+x = np.random.rand(100, 1) * 10                # Generate 100 random numbers between [0, 10) as feature x
+y = 2 * x + 1 + np.random.randn(100, 1) * 0.5  # Generate labels y = 2x + 1 + noise, simulating real data
 
-# 将NumPy数组转换为PyTorch张量（PyTorch模型只能处理张量）
-x_tensor = torch.from_numpy(x).float()          # 将x转为float32类型的张量
-y_tensor = torch.from_numpy(y).float()          # 将y转为float32类型的张量
+# Convert NumPy arrays to PyTorch tensors (PyTorch models can only handle tensors)
+x_tensor = torch.from_numpy(x).float()          # Convert x to float32 tensor
+y_tensor = torch.from_numpy(y).float()          # Convert y to float32 tensor
 
-# ========== 2. 定义模型 ==========
+# ========== 2. Define Model ==========
 class LinearRegression(nn.Module):
     def __init__(self):
         super(LinearRegression, self).__init__()
-        # 定义一个线性层：输入维度1（x），输出维度1（y）
-        # 等价于 y = wx + b，PyTorch会自动初始化w和b
+        # Define a linear layer: input dimension 1 (x), output dimension 1 (y)
+        # Equivalent to y = wx + b, PyTorch automatically initializes w and b
         self.linear = nn.Linear(1, 1)
     
     def forward(self, x):
-        return self.linear(x)                   # 前向传播：计算 y = wx + b
+        return self.linear(x)                   # Forward pass: calculate y = wx + b
 
-model = LinearRegression()                      # 实例化线性回归模型
-print(model)                                    # 打印模型结构，可以看到权重和偏置的初始值
+model = LinearRegression()                      # Instantiate linear regression model
+print(model)                                    # Print model structure, can see initial values of weights and biases
 
-# ========== 3. 定义损失函数和优化器 ==========
-# MSE损失函数：均方误差，计算预测值与真实值之间的平均平方差
-# 公式：Loss = (1/n) × Σ(ŷᵢ - yᵢ)²
+# ========== 3. Define Loss Function and Optimizer ==========
+# MSE loss function: mean squared error, calculates average squared difference between predictions and true values
+# Formula: Loss = (1/n) × Σ(ŷᵢ - yᵢ)²
 criterion = nn.MSELoss()
 
-# 随机梯度下降优化器：用于更新模型参数（权重和偏置）
-# model.parameters()：获取模型中所有需要训练的参数
-# lr=0.01：学习率，控制每次参数更新的步长大小
+# Stochastic Gradient Descent optimizer: used to update model parameters (weights and biases)
+# model.parameters(): get all trainable parameters in the model
+# lr=0.01: learning rate, controls step size of each parameter update
 optimizer = optim.SGD(model.parameters(), lr=0.01)
 
-# ========== 4. 训练模型 ==========
-epochs = 1000                                   # 训练轮数：整个数据集将被重复使用1000次
-losses = []                                     # 用于记录每轮的损失值，方便后续分析
+# ========== 4. Train Model ==========
+epochs = 1000                                   # Training epochs: entire dataset will be reused 1000 times
+losses = []                                     # Used to record loss value each epoch, for later analysis
 
-for epoch in range(epochs):                     # 遍历每个训练轮次
-    # --- 前向传播 ---
-    outputs = model(x_tensor)                   # 将所有数据输入模型，得到预测值
-    loss = criterion(outputs, y_tensor)         # 计算预测值与真实值之间的MSE损失
+for epoch in range(epochs):                     # Iterate through each training epoch
+    # --- Forward Pass ---
+    outputs = model(x_tensor)                   # Pass all data through model, get predictions
+    loss = criterion(outputs, y_tensor)         # Calculate MSE loss between predictions and true values
     
-    # --- 反向传播和参数更新 ---
-    optimizer.zero_grad()                       # 清零上一步的梯度（PyTorch默认会累积梯度）
-    loss.backward()                             # 反向传播：自动计算损失对每个参数的梯度
-    optimizer.step()                            # 根据梯度更新参数：w = w - lr × gradient
+    # --- Backward Pass and Parameter Update ---
+    optimizer.zero_grad()                       # Clear previous gradients (PyTorch accumulates gradients by default)
+    loss.backward()                             # Backward pass: automatically calculate gradients of loss with respect to each parameter
+    optimizer.step()                            # Update parameters based on gradients: w = w - lr × gradient
     
-    # --- 记录和打印 ---
-    losses.append(loss.item())                  # loss.item()将单元素张量转为Python标量
-    if (epoch + 1) % 100 == 0:                  # 每100轮打印一次训练进度
+    # --- Record and Print ---
+    losses.append(loss.item())                  # loss.item() converts single-element tensor to Python scalar
+    if (epoch + 1) % 100 == 0:                  # Print training progress every 100 epochs
         print(f'Epoch [{epoch+1}/{epochs}], Loss: {loss.item():.4f}')
 
-# ========== 5. 评估模型 ==========
-with torch.no_grad():                           # 禁用梯度跟踪（评估阶段不需要计算梯度）
-    predicted = model(x_tensor).numpy()         # 用训练好的模型进行预测，并转为NumPy数组
+# ========== 5. Evaluate Model ==========
+with torch.no_grad():                           # Disable gradient tracking (not needed during evaluation)
+    predicted = model(x_tensor).numpy()         # Make predictions with trained model, convert to NumPy array
 
-# 打印模型学习到的参数（理想情况下应接近 w=2, b=1）
-print(f'模型参数:')
-for name, param in model.named_parameters():    # 遍历模型的所有命名参数
-    print(f'{name}: {param.data.item()}')       # 打印参数名和值
+# Print model learned parameters (ideally should be close to w=2, b=1)
+print(f'Model parameters:')
+for name, param in model.named_parameters():    # Iterate through all named parameters of the model
+    print(f'{name}: {param.data.item()}')       # Print parameter name and value
 
-# ========== 6. 可视化结果 ==========
-plt.figure(figsize=(10, 6))                     # 创建10×6英寸的画布
-plt.scatter(x, y, label='原始数据')              # 绘制散点图，显示原始数据点
-plt.plot(x, predicted, color='red', label='预测直线')  # 绘制拟合的直线
-plt.xlabel('X')                                 # 设置x轴标签
-plt.ylabel('Y')                                 # 设置y轴标签
-plt.title('线性回归')                            # 设置图表标题
-plt.legend()                                    # 显示图例
-plt.show()                                      # 显示图表
+# ========== 6. Visualize Results ==========
+plt.figure(figsize=(10, 6))                     # Create 10×6 inch figure
+plt.scatter(x, y, label='Original data')              # Draw scatter plot showing original data points
+plt.plot(x, predicted, color='red', label='Predicted line')  # Draw fitted line
+plt.xlabel('X')                                 # Set x-axis label
+plt.ylabel('Y')                                 # Set y-axis label
+plt.title('Linear Regression')                            # Set chart title
+plt.legend()                                    # Show legend
+plt.show()                                      # Display chart
 
-# ========== 7. 保存模型 ==========
-# 只保存模型的参数（权重和偏置），不保存模型结构
-# .pth是PyTorch模型文件的标准扩展名
+# ========== 7. Save Model ==========
+# Save only model parameters (weights and biases), not model structure
+# .pth is standard extension for PyTorch model files
 torch.save(model.state_dict(), 'linear_regression_model.pth')
-print('模型已保存')
+print('Model saved')
 
-# ========== 8. 加载模型 ==========
-loaded_model = LinearRegression()               # 先创建一个相同结构的模型实例
-loaded_model.load_state_dict(torch.load('linear_regression_model.pth'))  # 加载保存的参数
-print('模型已加载')
+# ========== 8. Load Model ==========
+loaded_model = LinearRegression()               # First create a model instance with same structure
+loaded_model.load_state_dict(torch.load('linear_regression_model.pth'))  # Load saved parameters
+print('Model loaded')
 
-# 测试加载的模型：输入x=5.0，预测y应该接近 2×5+1 = 11
-with torch.no_grad():                           # 评估阶段不需要梯度
-    test_input = torch.tensor([[5.0]])           # 创建测试输入
-    test_output = loaded_model(test_input)       # 用加载的模型进行预测
-    print(f'输入 5.0, 预测输出: {test_output.item()}')  # 打印预测结果
-    print(f'真实值应该接近: {2*5 + 1}')          # 打印理论值：11
+# Test loaded model: input x=5.0, prediction y should be close to 2×5+1 = 11
+with torch.no_grad():                           # No gradients needed during evaluation
+    test_input = torch.tensor([[5.0]])           # Create test input
+    test_output = loaded_model(test_input)       # Make prediction with loaded model
+    print(f'Input 5.0, predicted output: {test_output.item()}')  # Print prediction result
+    print(f'True value should be close to: {2*5 + 1}')          # Print theoretical value: 11
 ```
 
-## 训练一个简单的分类模型
+## Training a Simple Classification Model
 
-### 完整训练代码
+### Complete Training Code
 
 ```python
-import torch                                    # 导入PyTorch库
-import torch.nn as nn                           # 导入神经网络模块
-import torch.optim as optim                     # 导入优化器模块
-from sklearn.datasets import make_classification  # 导入sklearn的分类数据生成器
-from sklearn.model_selection import train_test_split  # 导入数据集划分工具
-from sklearn.preprocessing import StandardScaler     # 导入数据标准化工具
+import torch                                    # Import PyTorch library
+import torch.nn as nn                           # Import neural network module
+import torch.optim as optim                     # Import optimizer module
+from sklearn.datasets import make_classification  # Import sklearn's classification data generator
+from sklearn.model_selection import train_test_split  # Import dataset splitting tool
+from sklearn.preprocessing import StandardScaler     # Import data standardization tool
 
-# ========== 1. 生成模拟分类数据 ==========
-# 生成1000个样本，每个样本20个特征，分为2个类别
-# n_informative=10：其中10个特征是有区分度的，其余10个是噪声特征
+# ========== 1. Generate Simulated Classification Data ==========
+# Generate 1000 samples, each with 20 features, divided into 2 classes
+# n_informative=10: 10 features are discriminative, remaining 10 are noise features
 X, y = make_classification(
     n_samples=1000, n_features=20, n_classes=2,
     n_informative=10, random_state=42
 )
 
-# 数据标准化：将每个特征缩放到均值为0、标准差为1的范围
-# 这对于神经网络的训练非常重要，可以加速收敛
+# Data standardization: scale each feature to have mean 0 and standard deviation 1
+# This is very important for neural network training, can accelerate convergence
 scaler = StandardScaler()
-X = scaler.fit_transform(X)                     # 计算均值和标准差，并应用标准化
+X = scaler.fit_transform(X)                     # Calculate mean and standard deviation, apply standardization
 
-# 划分训练集（80%）和测试集（20%）
+# Split into training set (80%) and test set (20%)
 X_train, X_test, y_train, y_test = train_test_split(
     X, y, test_size=0.2, random_state=42
 )
 
-# 将NumPy数组转换为PyTorch张量
-X_train_tensor = torch.from_numpy(X_train).float()  # 训练集特征，转为float32
-y_train_tensor = torch.from_numpy(y_train).long()   # 训练集标签，转为long（CrossEntropyLoss要求）
-X_test_tensor = torch.from_numpy(X_test).float()    # 测试集特征
-y_test_tensor = torch.from_numpy(y_test).long()     # 测试集标签
+# Convert NumPy arrays to PyTorch tensors
+X_train_tensor = torch.from_numpy(X_train).float()  # Training set features, converted to float32
+Y_train_tensor = torch.from_numpy(y_train).long()   # Training set labels, converted to long (required by CrossEntropyLoss)
+X_test_tensor = torch.from_numpy(X_test).float()    # Test set features
+Y_test_tensor = torch.from_numpy(y_test).long()     # Test set labels
 
-# ========== 2. 定义模型 ==========
+# ========== 2. Define Model ==========
 class SimpleClassifier(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(SimpleClassifier, self).__init__()
-        # 第一层：全连接层，将20维输入映射到32维隐藏层
+        # First layer: fully connected layer, maps 20-dimensional input to 32-dimensional hidden layer
         self.fc1 = nn.Linear(input_size, hidden_size)
-        # ReLU激活函数：引入非线性，帮助网络学习复杂模式
+        # ReLU activation function: introduces non-linearity, helps network learn complex patterns
         self.relu = nn.ReLU()
-        # 第二层：全连接层，将32维隐藏层映射到2维输出（2个类别的分数）
+        # Second layer: fully connected layer, maps 32-dimensional hidden layer to 2-dimensional output (scores for 2 classes)
         self.fc2 = nn.Linear(hidden_size, output_size)
     
     def forward(self, x):
-        out = self.fc1(x)                       # 线性变换：20维 → 32维
-        out = self.relu(out)                    # ReLU激活：将负值变为0
-        out = self.fc2(out)                     # 线性变换：32维 → 2维（输出logits）
-        return out                              # 返回每个类别的原始分数（logits）
+        out = self.fc1(x)                       # Linear transformation: 20D → 32D
+        out = self.relu(out)                    # ReLU activation: turns negative values to 0
+        out = self.fc2(out)                     # Linear transformation: 32D → 2D (output logits)
+        return out                              # Return raw scores (logits) for each class
 
-# 创建模型实例：输入20维，隐藏层32维，输出2维（2个类别）
+# Create model instance: input 20D, hidden layer 32D, output 2D (2 classes)
 model = SimpleClassifier(input_size=20, hidden_size=32, output_size=2)
-print(model)                                    # 打印模型结构
+print(model)                                    # Print model structure
 
-# ========== 3. 定义损失函数和优化器 ==========
-# 交叉熵损失函数：适用于多分类任务
-# 内部会自动对输出进行softmax + log运算，所以模型输出不需要经过softmax
+# ========== 3. Define Loss Function and Optimizer ==========
+# Cross entropy loss function: suitable for multi-class classification tasks
+# Internally automatically applies softmax + log operations, so model output doesn't need softmax
 criterion = nn.CrossEntropyLoss()
 
-# Adam优化器：自适应学习率优化器，比SGD收敛更快
-# lr=0.001：初始学习率
+# Adam optimizer: adaptive learning rate optimizer, converges faster than SGD
+# lr=0.001: initial learning rate
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-# ========== 4. 训练模型 ==========
-epochs = 100                                   # 训练100轮
-train_losses = []                               # 记录每轮训练损失
-test_losses = []                                # 记录每轮测试损失
+# ========== 4. Train Model ==========
+epochs = 100                                   # Train for 100 epochs
+train_losses = []                               # Record training loss each epoch
+test_losses = []                                # Record test loss each epoch
 
-for epoch in range(epochs):                     # 遍历每个训练轮次
-    # --- 训练阶段 ---
-    model.train()                               # 设置为训练模式（启用dropout和batch norm等）
+for epoch in range(epochs):                     # Iterate through each training epoch
+    # --- Training Phase ---
+    model.train()                               # Set to training mode (enables dropout and batch norm, etc.)
     
-    outputs = model(X_train_tensor)             # 前向传播：计算训练集的预测输出
-    loss = criterion(outputs, y_train_tensor)   # 计算训练损失
+    outputs = model(X_train_tensor)             # Forward pass: calculate training set predictions
+    loss = criterion(outputs, Y_train_tensor)   # Calculate training loss
     
-    optimizer.zero_grad()                       # 清零梯度
-    loss.backward()                             # 反向传播：计算梯度
-    optimizer.step()                            # 更新参数
+    optimizer.zero_grad()                       # Clear gradients
+    loss.backward()                             # Backward pass: calculate gradients
+    optimizer.step()                            # Update parameters
     
-    train_losses.append(loss.item())            # 记录训练损失
+    train_losses.append(loss.item())            # Record training loss
     
-    # --- 验证阶段 ---
-    model.eval()                                # 设置为评估模式（禁用dropout和batch norm等）
-    with torch.no_grad():                       # 禁用梯度跟踪，节省内存
-        test_outputs = model(X_test_tensor)     # 计算测试集的预测输出
-        test_loss = criterion(test_outputs, y_test_tensor)  # 计算测试损失
-        test_losses.append(test_loss.item())    # 记录测试损失
+    # --- Validation Phase ---
+    model.eval()                                # Set to evaluation mode (disables dropout and batch norm, etc.)
+    with torch.no_grad():                       # Disable gradient tracking, save memory
+        test_outputs = model(X_test_tensor)     # Calculate test set predictions
+        test_loss = criterion(test_outputs, Y_test_tensor)  # Calculate test loss
+        test_losses.append(test_loss.item())    # Record test loss
     
-    if (epoch + 1) % 10 == 0:                  # 每10轮打印一次
+    if (epoch + 1) % 10 == 0:                  # Print every 10 epochs
         print(f'Epoch [{epoch+1}/{epochs}], Train Loss: {loss.item():.4f}, Test Loss: {test_loss.item():.4f}')
 
-# ========== 5. 评估模型 ==========
-model.eval()                                    # 设置为评估模式
-with torch.no_grad():                           # 禁用梯度跟踪
-    # 计算训练集准确率
-    train_outputs = model(X_train_tensor)       # 训练集预测输出
-    _, train_preds = torch.max(train_outputs, 1)  # 取每行最大值的索引作为预测类别
-    train_accuracy = (train_preds == y_train_tensor).sum().item() / len(y_train_tensor)
+# ========== 5. Evaluate Model ==========
+model.eval()                                    # Set to evaluation mode
+with torch.no_grad():                           # Disable gradient tracking
+    # Calculate training set accuracy
+    train_outputs = model(X_train_tensor)       # Training set predictions
+    _, train_preds = torch.max(train_outputs, 1)  # Take index of maximum value in each row as predicted class
+    train_accuracy = (train_preds == Y_train_tensor).sum().item() / len(Y_train_tensor)
     
-    # 计算测试集准确率
-    test_outputs = model(X_test_tensor)         # 测试集预测输出
-    _, test_preds = torch.max(test_outputs, 1)   # 取每行最大值的索引作为预测类别
-    test_accuracy = (test_preds == y_test_tensor).sum().item() / len(y_test_tensor)
+    # Calculate test set accuracy
+    test_outputs = model(X_test_tensor)         # Test set predictions
+    _, test_preds = torch.max(test_outputs, 1)   # Take index of maximum value in each row as predicted class
+    test_accuracy = (test_preds == Y_test_tensor).sum().item() / len(Y_test_tensor)
 
-print(f'训练集准确率: {train_accuracy:.4f}')     # 打印训练集准确率
-print(f'测试集准确率: {test_accuracy:.4f}')      # 打印测试集准确率
+print(f'Training set accuracy: {train_accuracy:.4f}')     # Print training set accuracy
+print(f'Test set accuracy: {test_accuracy:.4f}')      # Print test set accuracy
 
-# ========== 6. 保存模型 ==========
-torch.save(model.state_dict(), 'simple_classifier.pth')  # 保存模型参数
-print('模型已保存')
+# ========== 6. Save Model ==========
+torch.save(model.state_dict(), 'simple_classifier.pth')  # Save model parameters
+print('Model saved')
 ```
 
-## PyTorch 常用技巧
+## PyTorch Common Techniques
 
-### 1. 数据加载
+### 1. Data Loading
 
 ```python
-from torch.utils.data import Dataset, DataLoader  # 导入数据集和数据加载器
+from torch.utils.data import Dataset, DataLoader  # Import dataset and data loader
 
-# 自定义数据集类，继承自Dataset（PyTorch数据集的基类）
+# Custom dataset class, inheriting from Dataset (base class for PyTorch datasets)
 class CustomDataset(Dataset):
     def __init__(self, X, y):
-        self.X = torch.from_numpy(X).float()    # 将特征转为float32张量
-        self.y = torch.from_numpy(y).long()     # 将标签转为long张量（分类任务需要）
+        self.X = torch.from_numpy(X).float()    # Convert features to float32 tensor
+        self.y = torch.from_numpy(y).long()     # Convert labels to long tensor (required for classification tasks)
     
     def __len__(self):
-        return len(self.X)                      # 返回数据集的总样本数（必须实现）
+        return len(self.X)                      # Return total number of samples in dataset (must implement)
     
     def __getitem__(self, idx):
-        return self.X[idx], self.y[idx]         # 根据索引返回一个样本和对应标签（必须实现）
+        return self.X[idx], self.y[idx]         # Return a sample and corresponding label by index (must implement)
 
-# 创建数据集实例
+# Create dataset instance
 train_dataset = CustomDataset(X_train, y_train)
 
-# 创建数据加载器：自动将数据分批次、打乱顺序
-# batch_size=32：每批32个样本
-# shuffle=True：每个epoch开始时打乱数据顺序，防止模型记忆数据顺序
+# Create data loader: automatically batches data, shuffles order
+# batch_size=32: 32 samples per batch
+# shuffle=True: shuffle data order at start of each epoch to prevent model from memorizing data order
 train_loader = DataLoader(train_dataset, batch_size=32, shuffle=True)
 
-# 使用数据加载器进行训练
+# Use data loader for training
 for batch_idx, (data, targets) in enumerate(train_loader):
-    # data：当前批次的特征数据，形状为 [32, 20]
-    # targets：当前批次的标签，形状为 [32]
-    # 在这里编写训练代码...
+    # data: current batch of feature data, shape [32, 20]
+    # targets: current batch of labels, shape [32]
+    # Write training code here...
     pass
 ```
 
-### 2. 模型评估
+### 2. Model Evaluation
 
 ```python
 def evaluate_model(model, data_loader, criterion):
-    """评估模型在给定数据集上的准确率和平均损失"""
-    model.eval()                                # 设置为评估模式
-    total_loss = 0                              # 累计损失
-    correct = 0                                 # 正确预测数
-    total = 0                                   # 总样本数
+    """Evaluate model accuracy and average loss on given dataset"""
+    model.eval()                                # Set to evaluation mode
+    total_loss = 0                              # Cumulative loss
+    correct = 0                                 # Number of correct predictions
+    total = 0                                   # Total number of samples
     
-    with torch.no_grad():                       # 禁用梯度跟踪
-        for data, targets in data_loader:       # 遍历每个批次
-            outputs = model(data)               # 前向传播，得到预测输出
-            loss = criterion(outputs, targets)  # 计算损失
-            total_loss += loss.item()           # 累加损失值
+    with torch.no_grad():                       # Disable gradient tracking
+        for data, targets in data_loader:       # Iterate through each batch
+            outputs = model(data)               # Forward pass, get predictions
+            loss = criterion(outputs, targets)  # Calculate loss
+            total_loss += loss.item()           # Accumulate loss value
             
-            # torch.max(outputs, 1)：返回每行最大值及其索引
-            # _：最大值（不需要），predicted：最大值的索引（即预测类别）
+            # torch.max(outputs, 1): returns maximum value and its index for each row
+            # _: maximum value (not needed), predicted: index of maximum value (i.e., predicted class)
             _, predicted = torch.max(outputs, 1)
-            total += targets.size(0)            # 累加当前批次的样本数
-            correct += (predicted == targets).sum().item()  # 累加正确预测数
+            total += targets.size(0)            # Accumulate number of samples in current batch
+            correct += (predicted == targets).sum().item()  # Accumulate number of correct predictions
     
-    accuracy = correct / total                  # 计算准确率
-    avg_loss = total_loss / len(data_loader)    # 计算平均损失（按批次数平均）
+    accuracy = correct / total                  # Calculate accuracy
+    avg_loss = total_loss / len(data_loader)    # Calculate average loss (averaged by number of batches)
     
-    return accuracy, avg_loss                   # 返回准确率和平均损失
+    return accuracy, avg_loss                   # Return accuracy and average loss
 ```
 
-### 3. 使用GPU加速
+### 3. Using GPU Acceleration
 
 ```python
-# 检查是否有可用的GPU，如果有则使用GPU，否则使用CPU
+# Check if GPU is available, use GPU if available, otherwise use CPU
 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-print(f'使用设备: {device}')                    # 输出当前使用的设备
+print(f'Using device: {device}')                    # Output current device being used
 
-# 将模型的所有参数移到GPU上
-model.to(device)                                # 之后模型的前向和反向传播都在GPU上执行
+# Move all model parameters to GPU
+model.to(device)                                # Model's forward and backward passes will now execute on GPU
 
-# 将数据移到GPU上（每次输入数据前都需要移到同一设备）
-X_train_tensor = X_train_tensor.to(device)      # 训练集特征移到GPU
-y_train_tensor = y_train_tensor.to(device)      # 训练集标签移到GPU
+# Move data to GPU (need to move to same device before inputting data each time)
+X_train_tensor = X_train_tensor.to(device)      # Move training set features to GPU
+Y_train_tensor = Y_train_tensor.to(device)      # Move training set labels to GPU
 ```
 
-## 常见问题及解决方案
+## Common Issues and Solutions
 
-### 1. CUDA 内存不足
+### 1. CUDA Out of Memory
 
 ```python
-# 方法一：减少批量大小，降低每次GPU需要处理的样本数量
-train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)  # 从32减小到16
+# Method 1: Reduce batch size, decrease number of samples GPU needs to process at once
+train_loader = DataLoader(train_dataset, batch_size=16, shuffle=True)  # Reduce from 32 to 16
 
-# 方法二：使用梯度累积，模拟更大的batch_size
-# 原理：将一个大批次分成多个小批次，分别计算梯度后累积，最后一次性更新参数
-accumulation_steps = 4                         # 每4个小批次更新一次参数
+# Method 2: Use gradient accumulation, simulate larger batch_size
+# Principle: Split a large batch into multiple small batches, calculate gradients separately and accumulate, then update parameters once
+accumulation_steps = 4                         # Update parameters every 4 small batches
 for batch_idx, (data, targets) in enumerate(train_loader):
-    outputs = model(data)                       # 前向传播
-    loss = criterion(outputs, targets)          # 计算损失
-    loss = loss / accumulation_steps            # 将损失除以累积步数，保证梯度均值不变
-    loss.backward()                             # 反向传播，梯度会累积（因为没有调用zero_grad）
+    outputs = model(data)                       # Forward pass
+    loss = criterion(outputs, targets)          # Calculate loss
+    loss = loss / accumulation_steps            # Divide loss by accumulation steps to keep gradient mean unchanged
+    loss.backward()                             # Backward pass, gradients will accumulate (because zero_grad not called)
     
-    if (batch_idx + 1) % accumulation_steps == 0:  # 每累积4步后更新一次参数
-        optimizer.step()                        # 使用累积的梯度更新参数
-        optimizer.zero_grad()                   # 清零梯度，为下一轮累积做准备
+    if (batch_idx + 1) % accumulation_steps == 0:  # Update parameters after every 4 accumulated steps
+        optimizer.step()                        # Update parameters using accumulated gradients
+        optimizer.zero_grad()                   # Clear gradients, prepare for next accumulation round
 ```
 
-### 2. 过拟合
+### 2. Overfitting
 
 ```python
-# 方法一：添加Dropout层，在训练时随机丢弃一部分神经元
-# 作用：防止神经元过度依赖某些特定特征，提高模型泛化能力
+# Method 1: Add Dropout layer, randomly drop some neurons during training
+# Effect: Prevents neurons from over-relying on specific features, improves model generalization ability
 class SimpleNet(nn.Module):
     def __init__(self, input_size, hidden_size, output_size):
         super(SimpleNet, self).__init__()
-        self.fc1 = nn.Linear(input_size, hidden_size)  # 第一层全连接
-        self.relu = nn.ReLU()                   # ReLU激活函数
-        self.dropout = nn.Dropout(p=0.5)        # Dropout层：训练时随机丢弃50%的神经元
-        self.fc2 = nn.Linear(hidden_size, output_size)  # 第二层全连接
+        self.fc1 = nn.Linear(input_size, hidden_size)  # First fully connected layer
+        self.relu = nn.ReLU()                   # ReLU activation function
+        self.dropout = nn.Dropout(p=0.5)        # Dropout layer: randomly drop 50% of neurons during training
+        self.fc2 = nn.Linear(hidden_size, output_size)  # Second fully connected layer
     
     def forward(self, x):
-        out = self.fc1(x)                       # 线性变换
-        out = self.relu(out)                    # ReLU激活
-        out = self.dropout(out)                  # Dropout（仅在model.train()时生效）
-        out = self.fc2(out)                     # 线性变换
+        out = self.fc1(x)                       # Linear transformation
+        out = self.relu(out)                    # ReLU activation
+        out = self.dropout(out)                  # Dropout (only effective when model.train())
+        out = self.fc2(out)                     # Linear transformation
         return out
 
-# 方法二：使用L2正则化（权重衰减）
-# 作用：在损失函数中添加参数的L2范数惩罚，防止参数值过大
-# weight_decay=1e-4：权重衰减系数，值越大正则化越强
+# Method 2: Use L2 regularization (weight decay)
+# Effect: Add L2 norm penalty of parameters to loss function, prevent parameters from becoming too large
+# weight_decay=1e-4: weight decay coefficient, larger value means stronger regularization
 optimizer = optim.Adam(model.parameters(), lr=0.001, weight_decay=1e-4)
 ```
 
-## 进一步学习资源
+## Further Learning Resources
 
-- [PyTorch 官方文档](https://pytorch.org/docs/stable/index.html)
-- [PyTorch 教程](https://pytorch.org/tutorials/)
+- [PyTorch Official Documentation](https://pytorch.org/docs/stable/index.html)
+- [PyTorch Tutorials](https://pytorch.org/tutorials/)
 - [Deep Learning with PyTorch: A 60 Minute Blitz](https://pytorch.org/tutorials/beginner/deep_learning_60min_blitz.html)
-- [PyTorch 官方示例](https://github.com/pytorch/examples)
-- [《深度学习入门之PyTorch》](https://github.com/L1aoXingyu/code-of-learn-deep-learning-with-pytorch)
+- [PyTorch Official Examples](https://github.com/pytorch/examples)
+- [Deep Learning Introduction with PyTorch](https://github.com/L1aoXingyu/code-of-learn-deep-learning-with-pytorch)
 
 ---
 
-*通过本教程，你应该已经掌握了PyTorch的基本使用方法和训练简单机器学习模型的技巧。继续深入学习，你可以构建更复杂的深度学习模型！* 🎉
+*Through this tutorial, you should have mastered the basic usage of PyTorch and techniques for training simple machine learning models. Continue learning to build more complex deep learning models!* 🎉

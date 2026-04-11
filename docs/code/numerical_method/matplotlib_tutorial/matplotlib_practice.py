@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
  
 # evenly sampled time at 200ms intervals
 
-t = np.arange(0.0, 5.0, 0.2)
+t = np.arange(0., 5., 0.2)
 t_exp = np.exp(t)
 plt.plot(t, t, 'r--',t, t**2, 'ro-', t, t_exp, 'bs-')
 
@@ -16,4 +16,3 @@ plt.xlabel('some numbers')
 plt.title('A simple plot')
 plt.show()
 
-#5.0 is same as 5. , but not same as 5, which is an integer.

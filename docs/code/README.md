@@ -8,5 +8,6 @@ Here are my code projects and GitHub links.
 
 
 - [SSH Key Configuration Guide](../SSH_key/README.md) - Detailed steps for GitHub SSH key configuration
-- [Python](./Python%20basic/README.md) - Introduction to Python classes and object-oriented programming
+- [Python](./Python/README.md) - Python learning materials and practice code
+- [Anaconda](./Anaconda/README.md) - Anaconda download and usage guide
 - [Numerical Method](./numerical_method/README.md) - Numerical method training with Python code for numerical simulation

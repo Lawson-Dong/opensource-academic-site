@@ -57,7 +57,7 @@ class Engine():
         
         
         
-class ElectricCar(Car):  # 只继承Car
+class ElectricCar(Car):  # Only inherit from Car
     def __init__(self, make, model, year, color, battery_size=75, engine_size=2.0):
         super().__init__(make, model, year, color)
         self.battery = Battery(battery_size)  # combine Battery

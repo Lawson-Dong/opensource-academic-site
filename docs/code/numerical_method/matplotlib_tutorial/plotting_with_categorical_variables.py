@@ -16,9 +16,9 @@ values = [1, 10, 100]
 #plt.show()
 
 plt.figure(figsize=(3, 9))
-plt.subplot(411)
+plt.subplot(311)
 plt.bar(names, values)
-plt.subplot(212)
+plt.subplot(312)
 plt.scatter(names, values)
 plt.subplot(313)
 plt.plot(names, values)

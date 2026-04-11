@@ -15,3 +15,16 @@ plt.annotate('local max',                                     # text to display 
 
 plt.ylim(-2, 2)
 plt.show()
+
+# The arrowprops dictionary has many options to customize the arrow, such as color, width, head width, head length, etc. You can find more details in the Matplotlib documentation.
+
+#arrowprops=dict(
+#    facecolor='red',  # red arrow fill color
+#    edgecolor='blue',  # blue border color
+#    width=3,    # arrow shaft width (in points)
+#    headwidth=10,   # arrow head width
+#    headlength=8,   # arrow head length
+#    shrink=0.1,    # shrink both ends by 10%
+#    alpha=0.7,    # opacity 0.7 (70% opaque)
+#    linestyle='dashed'  # dashed arrow line style
+#)
